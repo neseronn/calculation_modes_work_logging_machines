@@ -75,3 +75,43 @@ main {
 .form-radio {
   display: flex;
 }
+
+/*  */
+
+.header {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.machine-header {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+}
+.machine-header>p {
+  margin: 0 20px;
+}
+
+.flex-header {
+  display: flex;
+  margin: 0 20px;
+}
+.flex-header>p {
+  margin: 0 20px;
+}
+
+/*  */
+
+.machine-marks {
+  display: flex;
+}
+
+.machine-marks-column {
+  display: flex;
+  margin: 0 10px;
+}
+
+.machine-marks-column > .general-input {
+  
+}
