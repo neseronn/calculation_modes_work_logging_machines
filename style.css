@@ -58,7 +58,7 @@ main {
   flex-direction: column;
 }
 
-.general-input {
+.input {
   padding: 0.6em 1em;
   border-radius: 25px;
 }
@@ -105,13 +105,48 @@ main {
 
 .machine-marks {
   display: flex;
+  justify-content: end;
+  margin: 20px 200px;
 }
 
 .machine-marks-column {
   display: flex;
-  margin: 0 10px;
+  margin: 0 25px;
+  align-items: center;
 }
 
-.machine-marks-column > .general-input {
-  
+.machine-marks-column .mark-input, .main-input, .additional-input {
+  width: 20px;
 }
+
+/*  */
+
+.month-row {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.month, .work-days {
+  margin: 0 15px;
+}
+
+.work-days {
+  width: 80px;
+  margin-right: 50px;
+}
+
+.parameter-name {
+  justify-content: space-around;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.additional-data, .main-data {
+  display: flex;
+  margin: 0 22px;
+}
+
