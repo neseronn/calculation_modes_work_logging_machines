@@ -37,7 +37,7 @@ nav {
 
 main {
   position: relative;
-  width: 80%;
+  width: 90%;
   margin: 40px auto;
   display: flex;
   justify-content: space-between;
@@ -46,6 +46,10 @@ main {
 .container1 {
   box-sizing: content-box;
   /* width: 80%; */
+}
+.container2 {
+  box-sizing: content-box;
+  width: 70%;
 }
 
 .form-input {
