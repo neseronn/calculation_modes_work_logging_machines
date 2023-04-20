@@ -20,34 +20,30 @@ let replaceableMachinePerformanceNode = document.querySelector(
   "#replaceable-machine-performance"
 );
 /*
-Взятие всех радиокнопок
+Вывод ввода данных для основных и дополнительных машин
 */
 let allRadioButtonNode = document.querySelectorAll(".radio-input");
 for (let i = 0; i < allRadioButtonNode.length; i++) {
   allRadioButtonNode[i].addEventListener("input", () => {
-    generatedIdForBasicAndAdditionalTable(
-      firstMonthNode.value,
-      monthCountNode.value
-    );
+    if (allRadioButtonNode[i].id == "v-t-s-p1")
+      generatedIdForBasicAndAdditionalTable(
+        firstMonthNode.value,
+        monthCountNode.value
+      );
   });
 }
-// for (let i = 0; i < allRadioButtonNode.length; i++) {
-//   if (allRadioButtonNode[i].checked) {
-//     console.log("SADASD");
-//     generatedIdForBasicAndAdditionalTable(
-//       firstMonthNode.value,
-//       monthCountNode.value
-//     );
-//   }
-// }
 /*
 Повтор данных по машинам(основным и дополнительным)
 */
 repeatInputCarsNode.addEventListener("click", () => {
   let select = false;
   for (let i = 0; i < 11; i++) {
-    if (allRadioButtonNode[i].checked) {
+    if (
+      allRadioButtonNode[i].checked &&
+      allRadioButtonNode[i].id == "v-t-s-p1"
+    ) {
       select = true;
+      console.log("Выбрана технология В Т С П(1)");
     }
   }
   if (select) {
@@ -64,7 +60,7 @@ repeatTotalNode.addEventListener("click", () => {
   shiftsNumberNode.value = Number(3);
   replaceableMachinePerformanceNode.value = Number(3);
 });
-/*Функция для подсчёта корректности данных */
+/*Функция для определения корректности данных */
 confirmInputCarsNode.addEventListener("click", () => {
   let arr_main = document.querySelectorAll(".main-input");
   let arr_additional = document.querySelectorAll(".additional-input");
@@ -75,7 +71,7 @@ confirmInputCarsNode.addEventListener("click", () => {
   let count = 0;
   let numberMonths = 0;
   let currectData = true;
-  let some = true;
+  let dataIsCorrect = true;
   for (let i = 0; i < arr_main.length; i++) {
     count++;
     numberMonths++;
@@ -88,11 +84,7 @@ confirmInputCarsNode.addEventListener("click", () => {
       massMain.push(main);
       main = 1;
       additional = 1;
-      //   console.log(massMain);
-      //   console.log(massAdditional);
     }
-    console.log(count);
-    console.log(numberMonths);
     if (numberMonths == 12) {
       let buf = massMain;
       let max = Math.max(...buf);
@@ -104,14 +96,14 @@ confirmInputCarsNode.addEventListener("click", () => {
     }
     if (currectData == false) {
       alert("Ошибка ввода данных по основным и дополнительным машинам.");
-      some = false;
+      dataIsCorrect = false;
       break;
     } else if (currectData == true && numberMonths == 12) {
       numberMonths = 0;
     } else {
     }
   }
-  if (some != false) {
+  if (dataIsCorrect) {
     alert("Можно приступать к расчетам на листе 111с.");
   }
 });
