@@ -1,4 +1,3 @@
-
 /*
 Кнопки Повтора ввода и подтверждения общих данных
 */
@@ -24,6 +23,23 @@ let replaceableMachinePerformanceNode = document.querySelector(
 Взятие всех радиокнопок
 */
 let allRadioButtonNode = document.querySelectorAll(".radio-input");
+for (let i = 0; i < allRadioButtonNode.length; i++) {
+  allRadioButtonNode[i].addEventListener("input", () => {
+    generatedIdForBasicAndAdditionalTable(
+      firstMonthNode.value,
+      monthCountNode.value
+    );
+  });
+}
+// for (let i = 0; i < allRadioButtonNode.length; i++) {
+//   if (allRadioButtonNode[i].checked) {
+//     console.log("SADASD");
+//     generatedIdForBasicAndAdditionalTable(
+//       firstMonthNode.value,
+//       monthCountNode.value
+//     );
+//   }
+// }
 /*
 Повтор данных по машинам(основным и дополнительным)
 */
@@ -57,21 +73,27 @@ confirmInputCarsNode.addEventListener("click", () => {
   let main = 1;
   let additional = 1;
   let count = 0;
-  let numberMonth = 0;
+  let numberMonths = 0;
   let currectData = true;
+  let some = true;
   for (let i = 0; i < arr_main.length; i++) {
     count++;
-    numberMonth++;
-    main *= arr_main[i];
-    additional *= arr_additional[i];
+    numberMonths++;
+
+    main *= arr_main[i].value;
+    additional *= arr_additional[i].value;
     if (count == 3) {
       count = 0;
+      massAdditional.push(additional);
+      massMain.push(main);
+      main = 1;
+      additional = 1;
+      //   console.log(massMain);
+      //   console.log(massAdditional);
     }
-    massAdditional.push(additional);
-    massMain.push(main);
-    main = 1;
-    additional = 1;
-    if (numberMonth == 12) {
+    console.log(count);
+    console.log(numberMonths);
+    if (numberMonths == 12) {
       let buf = massMain;
       let max = Math.max(...buf);
       for (let i = 0; i < massMain.length; i++) {
@@ -82,14 +104,22 @@ confirmInputCarsNode.addEventListener("click", () => {
     }
     if (currectData == false) {
       alert("Ошибка ввода данных по основным и дополнительным машинам.");
+      some = false;
       break;
+    } else if (currectData == true && numberMonths == 12) {
+      numberMonths = 0;
+    } else {
     }
+  }
+  if (some != false) {
+    alert("Можно приступать к расчетам на листе 111с.");
   }
 });
 /* 
 Функция генерации id для ввода данных по основным и доп машинам
 */
 let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
+  let monthsNode = document.querySelector(".months");
   /*Для основных
   id для разных машин main-car-mark-v, main-car-mark-t, main-car-mark-s, main-car-mark-p.
   */
@@ -99,12 +129,137 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
   */
 
   //id для числа раб дней count-work-days
-
+  monthsNode.innerHTML = "";
   for (let i = firstMonth; i < Number(countMonth) + Number(firstMonth); i++) {
     // Получение названия месяца на русском языке
     let monthName = new Date(2023, i - 1, 1).toLocaleString("ru", {
       month: "long",
     });
+    monthsNode.innerHTML += `<div class="month-row">
+    <h2 class="month" id="">${monthName}</h2>
+    <input
+      class="input work-days"
+      type="text"
+      id=""
+      placeholder="20"
+    />
+
+    <div class="main-data">
+      <div class="column parameter-name">
+        <p>Число машин</p>
+        <p>Число смен</p>
+        <p>Смен выработки</p>
+      </div>
+      <div class="column">
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+      </div>
+      <div class="column">
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+      </div>
+      <div class="column">
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+      </div>
+      <div class="column">
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+        <input class="input main-input" type="text" name="" id="" />
+      </div>
+    </div>
+
+    <div class="additional-data">
+      <div class="column parameter-name">
+        <p>Число машин</p>
+        <p>Число смен</p>
+        <p>Смен выработки</p>
+      </div>
+      <div class="column">
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+      </div>
+      <div class="column">
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+      </div>
+      <div class="column">
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+      </div>
+      <div class="column">
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+        <input
+          class="input additional-input"
+          type="text"
+          name=""
+          id=""
+        />
+      </div>
+    </div>
+  </div>`;
   }
 
   //   for (let i = firstMonth; i < Number(countMonth) + Number(firstMonth); i++) {
