@@ -14,6 +14,7 @@ let monthCountNode = document.querySelector("#month-count");
 let firstMonthNode = document.querySelector("#first-month");
 let markNode = document.querySelector("#mark");
 let totalStockNode = document.querySelector("#total-stock");
+let avgStockNode = document.querySelector("#avg-stock");
 let zoneLengthNode = document.querySelector("#zone-length");
 let shiftsNumberNode = document.querySelector("#shifts-number");
 let replaceableMachinePerformanceNode = document.querySelector(
@@ -44,6 +45,54 @@ repeatInputCarsNode.addEventListener("click", () => {
     ) {
       select = true;
       console.log("Выбрана технология В Т С П(1)");
+      //Беру все нужные поля и заполняю их (просто повтор данных верных для теста)
+      let arr_main = document.querySelectorAll(".main-input");
+      arr_main[0].value = Number(64);
+      arr_main[1].value = Number(1);
+      arr_main[2].value = Number(1);
+
+      arr_main[3].value = Number(87);
+      arr_main[4].value = Number(1);
+      arr_main[5].value = Number(1);
+
+      arr_main[6].value = Number(48);
+      arr_main[7].value = Number(2);
+      arr_main[8].value = Number(1);
+
+      arr_main[9].value = Number(200);
+      arr_main[10].value = Number(1);
+      arr_main[11].value = Number(0.5);
+      let arr_additional = document.querySelectorAll(".additional-input");
+      arr_additional[0].value = Number(64);
+      arr_additional[1].value = Number(1);
+      arr_additional[2].value = Number(1);
+
+      arr_additional[3].value = Number(87);
+      arr_additional[4].value = Number(1);
+      arr_additional[5].value = Number(1);
+
+      arr_additional[6].value = Number(48);
+      arr_additional[7].value = Number(2);
+      arr_additional[8].value = Number(1);
+
+      arr_additional[9].value = Number(200);
+      arr_additional[10].value = Number(1);
+      arr_additional[11].value = Number(0.5);
+      let mark_arr_additional = document.querySelectorAll(
+        ".mark-input-additional"
+      );
+      let mark_arr_main = document.querySelectorAll(".mark-input-main");
+      mark_arr_main[0].value = "МП-5";
+      mark_arr_additional[0].value = "МП-5";
+      mark_arr_main[1].value = "ТТ-4";
+      mark_arr_additional[1].value = "ТТ-4";
+      mark_arr_main[2].value = "Тайга";
+      mark_arr_additional[2].value = "Тайга";
+      mark_arr_main[3].value = "ПЛ-1";
+      mark_arr_additional[3].value = "ПЛ-1";
+
+      let workDays = document.querySelector(".work-days");
+      workDays.value = Number(20);
     }
   }
   if (select) {
@@ -53,12 +102,13 @@ repeatInputCarsNode.addEventListener("click", () => {
 /*Обработчик нажатия повтора последнего ввода (пока просто заполнение цифрами 3) */
 repeatTotalNode.addEventListener("click", () => {
   monthCountNode.value = Number(1);
-  firstMonthNode.value = Number(3);
-  markNode.value = Number(3);
-  totalStockNode.value = Number(3);
-  zoneLengthNode.value = Number(3);
-  shiftsNumberNode.value = Number(3);
-  replaceableMachinePerformanceNode.value = Number(3);
+  firstMonthNode.value = Number(1);
+  markNode.value = "Маз";
+  totalStockNode.value = Number(100000);
+  avgStockNode.value = Number(180);
+  zoneLengthNode.value = Number(50);
+  shiftsNumberNode.value = Number(2);
+  replaceableMachinePerformanceNode.value = Number(56);
 });
 /*Функция для определения корректности данных */
 confirmInputCarsNode.addEventListener("click", () => {
