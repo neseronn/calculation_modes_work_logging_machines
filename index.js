@@ -7,6 +7,18 @@ let repeatInputCarsNode = document.querySelector("#repeat-input-cars");
 let confirmInputCarsNode = document.querySelector("#confirm-input-cars");
 let calculateNode = document.querySelector("#calculate");
 /*
+Функция расчётов по введёным данным
+алгоритм (блок-схема) описаный в книге
+*/
+calculateNode.addEventListener("click", () => {
+  let monthsNode = document.querySelectorAll("#months");
+  let months = [];
+  for (let month of monthsNode) {
+    months.push(month.innerHTML);
+  }
+  console.log(months);
+});
+/*
 Переменные хранящие узлы Общих данных
 для заполнения и дальнейшего использования
 */
@@ -20,21 +32,26 @@ let shiftsNumberNode = document.querySelector("#shifts-number");
 let replaceableMachinePerformanceNode = document.querySelector(
   "#replaceable-machine-performance"
 );
+let objectAllInfoAboutMainAndAdditionCars = {};
+let cats;
 /*
 Вывод ввода данных для основных и дополнительных машин
 */
 let allRadioButtonNode = document.querySelectorAll(".radio-input");
 for (let i = 0; i < allRadioButtonNode.length; i++) {
   allRadioButtonNode[i].addEventListener("input", () => {
-    if (allRadioButtonNode[i].id == "v-t-s-p1")
-      generatedIdForBasicAndAdditionalTable(
-        firstMonthNode.value,
-        monthCountNode.value
-      );
+    let cars = allRadioButtonNode[i].id.toUpperCase().split("-");
+    console.log(cars);
+    generatedIdForBasicAndAdditionalTable(
+      firstMonthNode.value,
+      monthCountNode.value,
+      cars
+    );
   });
 }
 /*
 Повтор данных по машинам(основным и дополнительным)
+(пока просто заполнение нормальными рабочими данными)
 */
 repeatInputCarsNode.addEventListener("click", () => {
   let select = false;
@@ -99,7 +116,7 @@ repeatInputCarsNode.addEventListener("click", () => {
     console.log("Был выбран одна из технологий");
   }
 });
-/*Обработчик нажатия повтора последнего ввода (пока просто заполнение цифрами 3) */
+/*Обработчик нажатия повтора последнего ввода (пока просто заполнение нормальными рабочими данными) */
 repeatTotalNode.addEventListener("click", () => {
   monthCountNode.value = Number(1);
   firstMonthNode.value = Number(1);
@@ -112,6 +129,22 @@ repeatTotalNode.addEventListener("click", () => {
 });
 /*Функция для определения корректности данных */
 confirmInputCarsNode.addEventListener("click", () => {
+  let countPairs = 0;
+  for (let i = 0; i < 11; i++) {
+    if (allRadioButtonNode[i].checked) {
+      countPairs = allRadioButtonNode[i].id.split("-").length - 1;
+    }
+  }
+  console.log(countPairs);
+
+  let mark_arr_additional = document.querySelectorAll(".mark-input-additional");
+  let mark_arr_main = document.querySelectorAll(".mark-input-main");
+
+  let monthsNode = document.querySelectorAll("#months");
+  let months = [];
+  for (let month of monthsNode) {
+    months.push(month.innerHTML);
+  }
   let arr_main = document.querySelectorAll(".main-input");
   let arr_additional = document.querySelectorAll(".additional-input");
   let massMain = [];
@@ -122,6 +155,7 @@ confirmInputCarsNode.addEventListener("click", () => {
   let numberMonths = 0;
   let currectData = true;
   let dataIsCorrect = true;
+  let currectMonth = 0;
   for (let i = 0; i < arr_main.length; i++) {
     count++;
     numberMonths++;
@@ -135,13 +169,23 @@ confirmInputCarsNode.addEventListener("click", () => {
       main = 1;
       additional = 1;
     }
-    if (numberMonths == 12) {
+    if (numberMonths == 3 * (countPairs + 1)) {
       let buf = massMain;
       let max = Math.max(...buf);
+      let massMainPlusAdditional = [];
       for (let i = 0; i < massMain.length; i++) {
-        if (massMain[i] + massAdditional[i] <= max) {
+        massMainPlusAdditional.push(massMain[i] + massAdditional[i]);
+      }
+      for (let i = 0; i < massMainPlusAdditional.length; i++) {
+        if (massMainPlusAdditional[i] <= max) {
           currectData = false;
         }
+        objectAllInfoAboutMainAndAdditionCars[months[currectMonth]] = {
+          Qmain: massMain,
+          Qadditional: massAdditional,
+          QmainPlusAdditional: massMainPlusAdditional,
+        };
+        console.log(objectAllInfoAboutMainAndAdditionCars);
       }
     }
     if (currectData == false) {
@@ -160,8 +204,11 @@ confirmInputCarsNode.addEventListener("click", () => {
 /* 
 Функция генерации id для ввода данных по основным и доп машинам
 */
-let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
-  let monthsNode = document.querySelector(".months");
+let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth, cars) => {
+  let infoAboutMainAndAdditional = document.querySelector(
+    "#infoAboutMainAndAdditional"
+  );
+  let monthsNode = "";
   /*Для основных
   id для разных машин main-car-mark-v, main-car-mark-t, main-car-mark-s, main-car-mark-p.
   */
@@ -171,14 +218,64 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
   */
 
   //id для числа раб дней count-work-days
-  monthsNode.innerHTML = "";
+  monthsNode = "";
+  monthsNode += `<div class="header">
+  <h3>Основные</h3>
+  <h3>Дополнительные</h3>
+</div>
+<div id="machine-data">
+  <div class="machine-header">
+    <p>Месяц</p>
+    <p>Число рабочих дней</p>
+    <div class="flex-header">
+      <p>Параметры</p>`;
+  for (let car of cars) {
+    monthsNode += `
+    <p>${car}</p>`;
+  }
+  monthsNode += `</div>
+      <div class="flex-header">
+        <p>Параметры</p>`;
+  for (let car of cars) {
+    monthsNode += `<p>${car}</p>`;
+  }
+  monthsNode += `</div>
+  </div>
+
+  <div class="machine-marks">
+    <div class="machine-marks-column">
+      <p>Марка машины</p>`;
+  for (let car of cars) {
+    monthsNode += `<input
+        class="input mark-input mark-input-main"
+        type="text"
+        name=""
+        id=""
+      />`;
+  }
+  monthsNode += `</div>
+  <div class="machine-marks-column">
+    <p>Марка машины</p>`;
+  for (let car of cars) {
+    monthsNode += `<input
+            class="input mark-input mark-input-additional"
+            type="text"
+            name=""
+            id=""
+          />`;
+  }
+  monthsNode += `</div>
+      </div>
+
+      <div class="months">`;
+
   for (let i = firstMonth; i < Number(countMonth) + Number(firstMonth); i++) {
     // Получение названия месяца на русском языке
     let monthName = new Date(2023, i - 1, 1).toLocaleString("ru", {
       month: "long",
     });
-    monthsNode.innerHTML += `<div class="month-row">
-    <h2 class="month" id="">${monthName}</h2>
+    monthsNode += `<div class="month-row">
+    <h2 class="month" id="months">${monthName}</h2>
     <input
       class="input work-days"
       type="text"
@@ -192,26 +289,15 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
         <p>Число смен</p>
         <p>Смен выработки</p>
       </div>
-      <div class="column">
+      `;
+    for (let car of cars) {
+      monthsNode += `<div class="column">
         <input class="input main-input" type="text" name="" id="" />
         <input class="input main-input" type="text" name="" id="" />
         <input class="input main-input" type="text" name="" id="" />
-      </div>
-      <div class="column">
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-      </div>
-      <div class="column">
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-      </div>
-      <div class="column">
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-        <input class="input main-input" type="text" name="" id="" />
-      </div>
+      </div>`;
+    }
+    monthsNode += `
     </div>
 
     <div class="additional-data">
@@ -219,8 +305,10 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
         <p>Число машин</p>
         <p>Число смен</p>
         <p>Смен выработки</p>
-      </div>
-      <div class="column">
+      </div>`;
+    for (let car of cars) {
+      monthsNode += `
+        <div class="column">
         <input
           class="input additional-input"
           type="text"
@@ -239,70 +327,10 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
           name=""
           id=""
         />
-      </div>
-      <div class="column">
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-      </div>
-      <div class="column">
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-      </div>
-      <div class="column">
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-        <input
-          class="input additional-input"
-          type="text"
-          name=""
-          id=""
-        />
-      </div>
-    </div>
-  </div>`;
+      </div>`;
+    }
   }
+  //   monthsNode.innerHTML += ` </div>`;
 
   //   for (let i = firstMonth; i < Number(countMonth) + Number(firstMonth); i++) {
   //     // Получение названия месяца на русском языке
@@ -343,6 +371,7 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth) => {
   //     console.log(`additional-${i}-production-s`);
   //     console.log(`additional-${i}-production-p`);
   //   }
+  infoAboutMainAndAdditional.innerHTML = monthsNode;
 };
 
 confirmInputNode.addEventListener("click", () => {
