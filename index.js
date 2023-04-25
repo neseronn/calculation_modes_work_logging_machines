@@ -20,7 +20,7 @@ let shiftsNumberNode = document.querySelector("#shifts-number");
 let replaceableMachinePerformanceNode = document.querySelector(
     "#replaceable-machine-performance"
 );
-let objectAllInfoAboutMainAndAdditionCars = {};
+let objectAllInfoAboutMainAndAdditionCars = [];
 let infoForCalculated = {};
 let resultCalculated = {};
 /*
@@ -28,35 +28,50 @@ let resultCalculated = {};
 алгоритм (блок-схема) описаный в книге
 */
 calculateNode.addEventListener("click", () => {
-    let countMonths = 0;
-    for (let month in objectAllInfoAboutMainAndAdditionCars) {
-        countMonths++;
-    }
-
     let allCars = infoForCalculated.currectCars;
-    for (let month in objectAllInfoAboutMainAndAdditionCars) {
+    for (
+        let indexMonth = 0;
+        indexMonth < objectAllInfoAboutMainAndAdditionCars.length;
+        indexMonth++
+    ) {
         for (let i = 0; i < allCars.length - 1; i++) {
-            let currectCar = allCars[i] + allCars[i + 1];
+            // let currectCar = allCars[i] + allCars[i + 1];
             let currectQmainI =
-                objectAllInfoAboutMainAndAdditionCars[month].Qmain[i];
+                objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmain[i];
             let currectQmainS =
-                objectAllInfoAboutMainAndAdditionCars[month].Qmain[i + 1];
+                objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmain[i + 1];
+            console.log(currectQmainI);
+            console.log(currectQmainS);
             // стр. 111 блок 7
-            console.log(objectAllInfoAboutMainAndAdditionCars[month].Qmax);
-            if (currectQmainI > currectQmainS) {
-                // стр. 111 блок 8
-                if (
-                    currectQmainI !=
-                    objectAllInfoAboutMainAndAdditionCars[month].Qmax
-                ) {
-                }
-            }
-            // стр. 111 блок 9
-            else {
-                //Пока не знаю, если у нас доп машины пока их нет
-                if (true) {
-                }
-            }
+            // if (currectQmainI > currectQmainS) {
+            //     // стр. 111 блок 8
+            //     if (
+            //         currectQmainI !=
+            //         objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax
+            //     ) {
+            //     }
+            // }
+            // // стр. 111 блок 9
+            // else {
+            //     //Пока не знаю, если у нас доп машины пока их нет идём на 24 блок
+            //     if (true) {
+            //         // стр. 111 блок 24
+            //         if (indexMonth == 0) {
+            //             // стр. 111 блок 25
+            //             if (i != 0) {
+            //                 // стр. 111 блок 26
+            //             }
+            //             // стр. 111 блок 27
+            //         } else {
+            //             // стр. 111 блок 33
+            //             if (
+            //                 indexMonth !=
+            //                 objectAllInfoAboutMainAndAdditionCars.length
+            //             ) {
+            //             }
+            //         }
+            //     }
+            // }
 
             //ЗАПИСЬ ДАННЫХ В ОБЪЕКТ ПО МЕСЯЦАМ И МАШИНАМ
             // resultCalculated[month] = {
@@ -143,6 +158,7 @@ repeatTotalNode.addEventListener("click", () => {
 /*Функция для определения корректности данных */
 confirmInputCarsNode.addEventListener("click", () => {
     let countPairs = 0;
+    objectAllInfoAboutMainAndAdditionCars = [];
     for (let i = 0; i < 11; i++) {
         if (allRadioButtonNode[i].checked) {
             countPairs = allRadioButtonNode[i].id.split("-").length - 1;
@@ -212,13 +228,13 @@ confirmInputCarsNode.addEventListener("click", () => {
             numberMonths == 3 * (countPairs + 1)
         ) {
             numberMonths = 0;
-            objectAllInfoAboutMainAndAdditionCars[months[currectMonth]] = {
+            objectAllInfoAboutMainAndAdditionCars.push({
                 Qmain: massMain,
                 Qadditional: massAdditional,
                 QmainPlusAdditional: massMainPlusAdditional,
                 Qmax: max,
                 Qmin: min,
-            };
+            });
             massMain = [];
             massAdditional = [];
             massMainPlusAdditional = [];

@@ -23,12 +23,13 @@
 //     some++;
 // }
 // console.log(some);
-let firstMonth = 11;
-let m = [{ ноябрь: "" }, { декабрь: "" }, { январь: "" }, { февраль: "" }];
-for (let i = 0; i < m.length; i++) {
-    // Получение названия месяца на русском языке
-    let monthName = new Date(2023, i + firstMonth - 1, 1).toLocaleString("ru", {
-        month: "long",
-    });
-    console.log(monthName + i);
-}
+// let firstMonth = 11;
+// let m = [{ ноябрь: "" }, { декабрь: "" }, { январь: "" }, { февраль: "" }];
+// for (let i = 0; i < m.length; i++) {
+//     // Получение названия месяца на русском языке
+//     let monthName = new Date(2023, i + firstMonth - 1, 1).toLocaleString("ru", {
+//         month: "long",
+//     });
+//     console.log(monthName + i);
+// }
+1 != 1;
