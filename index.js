@@ -80,8 +80,10 @@ repeatInputCarsNode.addEventListener("click", () => {
         mark_arr_main[i].value = repeatInput.mark[i];
         mark_arr_additional[i].value = repeatInput.mark[i];
       }
-      let workDays = document.querySelectorall(".work-days");
-      workDays.value = Number(repeatInput.workDays);
+      let workDays = document.querySelectorAll(".work-days");
+      for (let workDay of workDays) {
+        workDay.value = Number(repeatInput.workDays);
+      }
     }
   }
   if (select) {
