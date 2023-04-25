@@ -7,18 +7,6 @@ let repeatInputCarsNode = document.querySelector("#repeat-input-cars");
 let confirmInputCarsNode = document.querySelector("#confirm-input-cars");
 let calculateNode = document.querySelector("#calculate");
 /*
-Функция расчётов по введёным данным
-алгоритм (блок-схема) описаный в книге
-*/
-calculateNode.addEventListener("click", () => {
-  let monthsNode = document.querySelectorAll("#months");
-  let months = [];
-  for (let month of monthsNode) {
-    months.push(month.innerHTML);
-  }
-  console.log(months);
-});
-/*
 Переменные хранящие узлы Общих данных
 для заполнения и дальнейшего использования
 */
@@ -33,7 +21,14 @@ let replaceableMachinePerformanceNode = document.querySelector(
   "#replaceable-machine-performance"
 );
 let objectAllInfoAboutMainAndAdditionCars = {};
-let cats;
+let infoForCalculated = {};
+/*
+Функция расчётов по введёным данным
+алгоритм (блок-схема) описаный в книге
+*/
+calculateNode.addEventListener("click", () => {
+  console.log(objectAllInfoAboutMainAndAdditionCars);
+});
 /*
 Вывод ввода данных для основных и дополнительных машин
 */
@@ -60,56 +55,33 @@ repeatInputCarsNode.addEventListener("click", () => {
       allRadioButtonNode[i].checked &&
       allRadioButtonNode[i].id == "v-t-s-p1"
     ) {
+      let repeatInput = {
+        main: [64, 1, 1, 87, 1, 1, 48, 2, 1, 200, 1, 0.5],
+        additional: [64, 1, 1, 87, 1, 1, 48, 2, 1, 200, 1, 0.5],
+        mark: ["МП-5", "ТТ-4", "Тайга", "ПЛ-1"],
+        workDays: 20,
+      };
       select = true;
       console.log("Выбрана технология В Т С П(1)");
       //Беру все нужные поля и заполняю их (просто повтор данных верных для теста)
       let arr_main = document.querySelectorAll(".main-input");
-      arr_main[0].value = Number(64);
-      arr_main[1].value = Number(1);
-      arr_main[2].value = Number(1);
-
-      arr_main[3].value = Number(87);
-      arr_main[4].value = Number(1);
-      arr_main[5].value = Number(1);
-
-      arr_main[6].value = Number(48);
-      arr_main[7].value = Number(2);
-      arr_main[8].value = Number(1);
-
-      arr_main[9].value = Number(200);
-      arr_main[10].value = Number(1);
-      arr_main[11].value = Number(0.5);
       let arr_additional = document.querySelectorAll(".additional-input");
-      arr_additional[0].value = Number(64);
-      arr_additional[1].value = Number(1);
-      arr_additional[2].value = Number(1);
 
-      arr_additional[3].value = Number(87);
-      arr_additional[4].value = Number(1);
-      arr_additional[5].value = Number(1);
-
-      arr_additional[6].value = Number(48);
-      arr_additional[7].value = Number(2);
-      arr_additional[8].value = Number(1);
-
-      arr_additional[9].value = Number(200);
-      arr_additional[10].value = Number(1);
-      arr_additional[11].value = Number(0.5);
       let mark_arr_additional = document.querySelectorAll(
         ".mark-input-additional"
       );
       let mark_arr_main = document.querySelectorAll(".mark-input-main");
-      mark_arr_main[0].value = "МП-5";
-      mark_arr_additional[0].value = "МП-5";
-      mark_arr_main[1].value = "ТТ-4";
-      mark_arr_additional[1].value = "ТТ-4";
-      mark_arr_main[2].value = "Тайга";
-      mark_arr_additional[2].value = "Тайга";
-      mark_arr_main[3].value = "ПЛ-1";
-      mark_arr_additional[3].value = "ПЛ-1";
 
-      let workDays = document.querySelector(".work-days");
-      workDays.value = Number(20);
+      for (let i = 0; i < repeatInput.main.length; i++) {
+        arr_main[i].value = Number(repeatInput.main[i]);
+        arr_additional[i].value = Number(repeatInput.additional[i]);
+      }
+      for (let i = 0; i < repeatInput.mark.length; i++) {
+        mark_arr_main[i].value = repeatInput.mark[i];
+        mark_arr_additional[i].value = repeatInput.mark[i];
+      }
+      let workDays = document.querySelectorall(".work-days");
+      workDays.value = Number(repeatInput.workDays);
     }
   }
   if (select) {
@@ -139,6 +111,9 @@ confirmInputCarsNode.addEventListener("click", () => {
 
   let mark_arr_additional = document.querySelectorAll(".mark-input-additional");
   let mark_arr_main = document.querySelectorAll(".mark-input-main");
+  let min;
+  let max;
+  let massMainPlusAdditional = [];
 
   let monthsNode = document.querySelectorAll("#months");
   let months = [];
@@ -170,36 +145,45 @@ confirmInputCarsNode.addEventListener("click", () => {
       additional = 1;
     }
     if (numberMonths == 3 * (countPairs + 1)) {
-      let buf = massMain;
-      let max = Math.max(...buf);
-      let massMainPlusAdditional = [];
+      let bufMax = massMain;
+      let bufMin = massMain;
+
+      max = Math.max(...bufMax);
+      min = Math.min(...bufMin);
       for (let i = 0; i < massMain.length; i++) {
         massMainPlusAdditional.push(massMain[i] + massAdditional[i]);
       }
       for (let i = 0; i < massMainPlusAdditional.length; i++) {
         if (massMainPlusAdditional[i] <= max) {
           currectData = false;
+          break;
         }
-        objectAllInfoAboutMainAndAdditionCars[months[currectMonth]] = {
-          Qmain: massMain,
-          Qadditional: massAdditional,
-          QmainPlusAdditional: massMainPlusAdditional,
-        };
-        console.log(objectAllInfoAboutMainAndAdditionCars);
       }
     }
     if (currectData == false) {
       alert("Ошибка ввода данных по основным и дополнительным машинам.");
       dataIsCorrect = false;
       break;
-    } else if (currectData == true && numberMonths == 12) {
+    } else if (currectData == true && numberMonths == 3 * (countPairs + 1)) {
       numberMonths = 0;
+      objectAllInfoAboutMainAndAdditionCars[months[currectMonth]] = {
+        Qmain: massMain,
+        Qadditional: massAdditional,
+        QmainPlusAdditional: massMainPlusAdditional,
+        Qmax: max,
+        Qmin: min,
+      };
+      massMain = [];
+      massAdditional = [];
+      massMainPlusAdditional = [];
+      currectMonth++;
     } else {
     }
   }
   if (dataIsCorrect) {
     alert("Можно приступать к расчетам на листе 111с.");
   }
+  console.log(objectAllInfoAboutMainAndAdditionCars);
 });
 /* 
 Функция генерации id для ввода данных по основным и доп машинам
@@ -327,8 +311,9 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth, cars) => {
           name=""
           id=""
         />
-      </div>`;
+      </div>    `;
     }
+    monthsNode += `</div> </div>`;
   }
   //   monthsNode.innerHTML += ` </div>`;
 
