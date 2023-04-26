@@ -29,6 +29,7 @@ let resultCalculated = {};
 */
 calculateNode.addEventListener("click", () => {
     let allCars = infoForCalculated.currectCars;
+    let S = infoForCalculated.N + Number(1);
     for (
         let indexMonth = 0;
         indexMonth < objectAllInfoAboutMainAndAdditionCars.length;
@@ -40,38 +41,70 @@ calculateNode.addEventListener("click", () => {
                 objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmain[i];
             let currectQmainS =
                 objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmain[i + 1];
-            console.log(currectQmainI);
-            console.log(currectQmainS);
-            // стр. 111 блок 7
-            // if (currectQmainI > currectQmainS) {
-            //     // стр. 111 блок 8
-            //     if (
-            //         currectQmainI !=
-            //         objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax
-            //     ) {
-            //     }
-            // }
-            // // стр. 111 блок 9
-            // else {
-            //     //Пока не знаю, если у нас доп машины пока их нет идём на 24 блок
-            //     if (true) {
-            //         // стр. 111 блок 24
-            //         if (indexMonth == 0) {
-            //             // стр. 111 блок 25
-            //             if (i != 0) {
-            //                 // стр. 111 блок 26
-            //             }
-            //             // стр. 111 блок 27
-            //         } else {
-            //             // стр. 111 блок 33
-            //             if (
-            //                 indexMonth !=
-            //                 objectAllInfoAboutMainAndAdditionCars.length
-            //             ) {
-            //             }
-            //         }
-            //     }
-            // }
+            let Qmax = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax;
+            let t3i = 0;
+            // console.log(currectQmainI);
+            // console.log(currectQmainS);
+            // console.log(S);
+            // console.log(Qmax);
+            // стр. 111 блок 10
+            if (indexMonth == 0) {
+                // стр. 111 блок 11
+                if (i != 0) {
+                    // стр. 111 блок 12
+                    //Расчет Tp = Tp - t1
+                }
+                // стр. 111 блок 13
+                if (S < 10) {
+                    // стр. 111 блок 14
+                    if (S <= 2) {
+                        // стр. 111 блок 14
+                        //Расчёт Zt = 0.25 * Qcр
+                    } else {
+                        // стр. 111 блок 16
+                        //Расчёт Zt = Qcр
+                    }
+                } else {
+                    //Блок 17
+                    //Zт = Qs
+                }
+                // стр. 111 блок 18
+                if (currectQmainI > currectQmainS) {
+                    if (currectQmainI == Qmax) {
+                        //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                    } else {
+                        if (t3i > 0) {
+                            //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                        } else {
+                            //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                        }
+                    }
+                } else {
+                    if (t3i > 0) {
+                        //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                    } else {
+                        //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                    }
+                }
+                //Расчёт Zг t1 t2 t3
+            } else {
+                // стр. 111 блок 19
+                if (
+                    indexMonth !=
+                    objectAllInfoAboutMainAndAdditionCars.length - 1
+                ) {
+                    //Расчет Zп t2 t3
+                } else {
+                    // стр. 111 блок 20
+                    if (i != 0) {
+                        // стр. 111 блок 21
+                        //Расчет Tp = Tp + t4
+                    }
+                    // стр. 111 блок 22
+                    //Расчёт Zp t2 t3 t4
+                }
+                //
+            }
 
             //ЗАПИСЬ ДАННЫХ В ОБЪЕКТ ПО МЕСЯЦАМ И МАШИНАМ
             // resultCalculated[month] = {
@@ -91,6 +124,7 @@ for (let i = 0; i < allRadioButtonNode.length; i++) {
         let cars = allRadioButtonNode[i].id.toUpperCase().split("-");
         console.log(cars);
         infoForCalculated["currectCars"] = cars;
+        infoForCalculated["N"] = i;
         generatedIdForBasicAndAdditionalTable(
             firstMonthNode.value,
             monthCountNode.value,
