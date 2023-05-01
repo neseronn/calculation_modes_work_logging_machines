@@ -67,11 +67,6 @@ calculateNode.addEventListener("click", () => {
             // console.log(Qmax);
             // стр. 111 блок 10
             if (indexMonth == 0) {
-                // стр. 111 блок 11
-                if (i != 0) {
-                    // стр. 111 блок 12
-                    //Расчет Tp = Tp - t1
-                }
                 // стр. 111 блок 13
                 if (S < 10) {
                     // стр. 111 блок 14
@@ -295,7 +290,7 @@ repeatInputCarsNode.addEventListener("click", () => {
         ) {
             let repeatInput = {
                 main: [64, 1, 1, 87, 1, 1, 48, 2, 1, 200, 1, 0.5],
-                additional: [64, 1, 1, 87, 1, 1, 48, 2, 1, 200, 1, 0.5],
+                additional: [64, 1, 1, 87, 1, 1, 48, 1, 1, 200, 1, 0.5],
                 mark: ["МП-5", "ТТ-4", "Тайга", "ПЛ-1"],
                 workDays: 20,
             };
