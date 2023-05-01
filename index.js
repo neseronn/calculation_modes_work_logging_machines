@@ -24,9 +24,218 @@ let objectAllInfoAboutMainAndAdditionCars = [];
 let infoForCalculated = {};
 let resultCalculated = {};
 /*
-Функция расчётов по введёным данным
+Функции расчётов по введёным данным
 алгоритм (блок-схема) описаный в книге
 */
+
+//Расчёт Блоков 18 и 32 в учебнике
+let calculateZgt1t2t3QiNotMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQMainPlusAdditionalI,
+    Zt,
+    currectQadditionalI
+) => {
+    //Расчёт Zг t1 t2 t3 по формуле Qi < Qs
+    let Zg =
+        ((Tp * (Qmax - currectQmainI) * (currectQMainPlusAdditionalI - Qmax) +
+            Zt * currectQadditionalI) *
+            currectQmainI) /
+        ((Qmax - currectQmainI) * (currectQMainPlusAdditionalI - Qmax) +
+            currectQmainI * currectQadditionalI);
+    Zg = Zg.toFixed(1);
+    t1 = Zg / currectQmainI;
+    t1 = t1.toFixed(2);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainI);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * currectQmainI - Zg) * (Qmax - currectQmainI)) /
+        (currectQmainI * currectQadditionalI);
+    t3 = t3.toFixed(2);
+    console.log("Расчёт по формуле Qi < Qs");
+
+    console.log(Zg);
+    console.log(t1);
+    console.log(t2);
+    console.log(t3);
+    return t1;
+};
+
+let calculateZgt1t2t3QiMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQmainS,
+    Zt,
+    currectQMainPlusAdditionalS,
+    currectQadditionalS
+) => {
+    //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+    let Zg =
+        ((Tp * Qmax - Zt) *
+            (Qmax - currectQmainS) *
+            (currectQMainPlusAdditionalS - Qmax) +
+            Zt * Qmax * currectQadditionalS) /
+        (Qmax * currectQadditionalS);
+    Zg = Zg.toFixed(1);
+    t1 = Zt / currectQmainI;
+    t1 = t1.toFixed(2);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainS);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
+        (Qmax * currectQadditionalS);
+    t3 = t3.toFixed(2);
+    console.log("Расчёт по формуле Qi > Qs");
+    console.log(Zg);
+    console.log(t1);
+    console.log(t2);
+    console.log(t3);
+    return t1;
+};
+
+//Расчет блока 23
+let calculateZgt2t3QiNotMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQMainPlusAdditionalI,
+    Zt,
+    currectQadditionalI
+) => {
+    //Расчёт Zг t1 t2 t3 по формуле Qi < Qs
+    let Zg =
+        (Tp * (Qmax - currectQmainI) * (currectQMainPlusAdditionalI - Qmax) +
+            Zt * currectQadditionalI) /
+        currectQadditionalI;
+    Zg = Zg.toFixed(1);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainI);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * currectQmainI - Zg) * (Qmax - currectQmainI)) /
+        (currectQmainI * currectQadditionalI);
+    t3 = t3.toFixed(2);
+    console.log("Расчёт по формуле Qi < Qs");
+
+    console.log(Zg);
+    console.log(t2);
+    console.log(t3);
+};
+
+let calculateZgt2t3QiMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQmainS,
+    Zt,
+    currectQMainPlusAdditionalS,
+    currectQadditionalS
+) => {
+    //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+    let Zg =
+        (Tp * (Qmax - currectQmainI) * (currectQMainPlusAdditionalS - Qmax) +
+            Zt * currectQadditionalS) /
+        currectQadditionalS;
+    Zg = Zg.toFixed(1);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainS);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
+        (Qmax * currectQadditionalS);
+    t3 = t3.toFixed(2);
+    console.log("Расчёт по формуле Qi > Qs");
+    console.log(Zg);
+    console.log(t2);
+    console.log(t3);
+};
+
+//Расчёт Блока 22 в учебнике
+let calculateZgt2t3t4QiNotMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQMainPlusAdditionalI,
+    Zt,
+    currectQadditionalI,
+    currectQmainS
+) => {
+    //Расчёт Zг t2 t3 t4 по формуле Qi < Qs
+    let Zg =
+        (Qmax *
+            (Tp *
+                (Qmax - currectQmainI) *
+                (currectQMainPlusAdditionalI - Qmax) +
+                Zt * currectQadditionalI)) /
+        ((Qmax - currectQmainI) * (currectQMainPlusAdditionalI - Qmax) +
+            Qmax * currectQadditionalI);
+    Zg = Zg.toFixed(1);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainI);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * currectQmainI - Zg) * (Qmax - currectQmainI)) /
+        (currectQmainI * currectQadditionalI);
+    t3 = t3.toFixed(2);
+
+    t4 = Zg / currectQmainS;
+    t4 = t4.toFixed(2);
+
+    console.log("Расчёт по формуле Qi < Qs");
+
+    console.log(Zg);
+    console.log(t2);
+    console.log(t3);
+    console.log(t4);
+    return t4;
+};
+
+let calculateZgt2t3t4QiMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainS,
+    Zt,
+    currectQMainPlusAdditionalS,
+    currectQadditionalS
+) => {
+    //Расчёт Zг t2 t3 t4 по формуле Qi > Qs
+    let Zg =
+        ((Tp * currectQmainS - Zt) *
+            (Qmax - currectQmainS) *
+            (currectQMainPlusAdditionalS - Qmax) +
+            Zt * currectQmainS * currectQadditionalS) /
+        (currectQmainS * currectQadditionalS);
+    Zg = Zg.toFixed(1);
+
+    t2 = (Zg - Zt) / (Qmax - currectQmainS);
+    t2 = t2.toFixed(2);
+
+    t3 =
+        ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
+        (Qmax * currectQadditionalS);
+    t3 = t3.toFixed(2);
+
+    t4 = Zg / currectQmainS;
+    t4 = t4.toFixed(2);
+
+    console.log("Расчёт по формуле Qi > Qs");
+
+    console.log(Zg);
+    console.log(t2);
+    console.log(t3);
+    console.log(t4);
+    return t4;
+};
+
 calculateNode.addEventListener("click", () => {
     let allCars = infoForCalculated.currectCars;
     let S = infoForCalculated.N + Number(1);
@@ -60,178 +269,99 @@ calculateNode.addEventListener("click", () => {
                     .QmainPlusAdditional[i + 1];
             let Qmax = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax;
             let t3i = 0;
+            let t4;
+            let t1;
             let Tp = objectAllInfoAboutMainAndAdditionCars[indexMonth].Tp;
             // console.log(currectQmainI);
             // console.log(currectQmainS);
             // console.log(S);
             // console.log(Qmax);
             // стр. 111 блок 10
-            if (indexMonth == 0) {
-                // стр. 111 блок 13
-                if (S < 10) {
+            let new_Tp = 0;
+            if (S < 10) {
+                // стр. 111 блок 14
+                console.log("Блок 13 меньше 10 технология");
+                if (S <= 2) {
                     // стр. 111 блок 14
-                    console.log("Блок 13 меньше 10 технология");
-                    if (S <= 2) {
-                        // стр. 111 блок 14
-                        //Расчёт Zt = 0.25 * Qcр
-                        console.log("Блок 14 меньше 2 технология");
+                    //Расчёт Zt = 0.25 * Qcр
+                    console.log("Блок 14 меньше 2 технология");
 
-                        Zt = 0.25 * Qavg;
-                    } else {
-                        console.log("Блок 14 меньше 10 технология и больше 2");
-
-                        // стр. 111 блок 16
-                        //Расчёт Zt = Qcр
-                        Zt = Qavg;
-                    }
+                    Zt = 0.25 * Qavg;
                 } else {
-                    //Блок 17
-                    //Zт = Qs
-                    Zt = currectQmainS;
+                    console.log("Блок 14 меньше 10 технология и больше 2");
+
+                    // стр. 111 блок 16
+                    //Расчёт Zt = Qcр
+                    Zt = Qavg;
                 }
-                console.log(
-                    "Определение по какой формуле считать Qi > Qs или Qi < Qs"
-                );
-                // стр. 111 блок 18
-                let Zg, t1, t2, t3;
+            } else {
+                //Блок 17
+                //Zт = Qs
+                Zt = currectQmainS;
+            }
+            if (indexMonth == 0) {
                 if (currectQmainI > currectQmainS) {
                     if (currectQmainI == Qmax) {
-                        //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
-                        Zg =
-                            ((Tp * Qmax - Zt) *
-                                (Qmax - currectQmainS) *
-                                (currectQMainPlusAdditionalS - Qmax) +
-                                Zt * Qmax * currectQadditionalS) /
-                            (Qmax * currectQadditionalS);
-                        Zg = Zg.toFixed(1);
-                        t1 = Zt / currectQmainI;
-                        t1 = t1.toFixed(2);
-
-                        t2 = (Zg - Zt) / (Qmax - currectQmainS);
-                        t2 = t2.toFixed(2);
-
-                        t3 =
-                            ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
-                            (Qmax * currectQadditionalS);
-                        t3 = t3.toFixed(2);
-                        console.log("Расчёт по формуле Qi > Qs");
-                        console.log(Zg);
-                        console.log(t1);
-                        console.log(t2);
-                        console.log(t3);
+                        t1 = calculateZgt1t2t3QiMoreQs(
+                            Tp,
+                            Qmax,
+                            currectQmainI,
+                            currectQmainS,
+                            Zt,
+                            currectQMainPlusAdditionalS,
+                            currectQadditionalS
+                        );
                     } else {
                         if (t3i > 0) {
-                            //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
-                            Zg =
-                                ((Tp * Qmax - Zt) *
-                                    (Qmax - currectQmainS) *
-                                    (currectQMainPlusAdditionalS - Qmax) +
-                                    Zt * Qmax * currectQadditionalS) /
-                                (Qmax * currectQadditionalS);
-                            Zg = Zg.toFixed(1);
-                            t1 = Zt / currectQmainI;
-                            t1 = t1.toFixed(2);
-
-                            t2 = (Zg - Zt) / (Qmax - currectQmainS);
-                            t2 = t2.toFixed(2);
-
-                            t3 =
-                                ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
-                                (Qmax * currectQadditionalS);
-                            t3 = t3.toFixed(2);
-                            console.log("Расчёт по формуле Qi > Qs");
-                            console.log(Zg);
-                            console.log(t1);
-                            console.log(t2);
-                            console.log(t3);
+                            t1 = calculateZgt1t2t3QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS
+                            );
                         } else {
                             //Расчёт Zг t1 t2 t3 по формуле Qi < Qs
-                            Zg =
-                                ((Tp *
-                                    (Qmax - currectQmainI) *
-                                    (currectQMainPlusAdditionalI - Qmax) +
-                                    Zt * currectQadditionalI) *
-                                    currectQmainI) /
-                                ((Qmax - currectQmainI) *
-                                    (currectQMainPlusAdditionalI - Qmax) +
-                                    currectQmainI * currectQadditionalI);
-                            Zg = Zg.toFixed(1);
-                            t1 = Zg / currectQmainI;
-                            t1 = t1.toFixed(2);
-
-                            t2 = (Zg - Zt) / (Qmax - currectQmainI);
-                            t2 = t2.toFixed(2);
-
-                            t3 =
-                                ((Tp * currectQmainI - Zg) *
-                                    (Qmax - currectQmainI)) /
-                                (currectQmainI * currectQadditionalI);
-                            t3 = t3.toFixed(2);
-                            console.log("Расчёт по формуле Qi < Qs");
-
-                            console.log(Zg);
-                            console.log(t1);
-                            console.log(t2);
-                            console.log(t3);
+                            t1 = calculateZgt1t2t3QiNotMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQMainPlusAdditionalI,
+                                Zt,
+                                currectQadditionalI
+                            );
                         }
                     }
                 } else {
                     if (t3i > 0) {
                         //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
-                        Zg =
-                            ((Tp * Qmax - Zt) *
-                                (Qmax - currectQmainS) *
-                                (currectQMainPlusAdditionalS - Qmax) +
-                                Zt * Qmax * currectQadditionalS) /
-                            (Qmax * currectQadditionalS);
-                        Zg = Zg.toFixed(1);
-                        t1 = Zt / currectQmainI;
-                        t1 = t1.toFixed(2);
-
-                        t2 = (Zg - Zt) / (Qmax - currectQmainS);
-                        t2 = t2.toFixed(2);
-
-                        t3 =
-                            ((Tp * Qmax - Zt) * (Qmax - currectQmainS)) /
-                            (Qmax * currectQadditionalS);
-                        t3 = t3.toFixed(2);
-                        console.log("Расчёт по формуле Qi > Qs");
-                        console.log(Zg);
-                        console.log(t1);
-                        console.log(t2);
-                        console.log(t3);
+                        t1 = calculateZgt1t2t3QiMoreQs(
+                            Tp,
+                            Qmax,
+                            currectQmainI,
+                            currectQmainS,
+                            Zt,
+                            currectQMainPlusAdditionalS,
+                            currectQadditionalS
+                        );
                     } else {
                         //Расчёт Zг t1 t2 t3 по формуле Qi < Qs
-                        Zg =
-                            ((Tp *
-                                (Qmax - currectQmainI) *
-                                (currectQMainPlusAdditionalI - Qmax) +
-                                Zt * currectQadditionalI) *
-                                currectQmainI) /
-                            ((Qmax - currectQmainI) *
-                                (currectQMainPlusAdditionalI - Qmax) +
-                                currectQmainI * currectQadditionalI);
-                        Zg = Zg.toFixed(1);
-                        t1 = Zg / currectQmainI;
-                        t1 = t1.toFixed(2);
-
-                        t2 = (Zg - Zt) / (Qmax - currectQmainI);
-                        t2 = t2.toFixed(2);
-
-                        t3 =
-                            ((Tp * currectQmainI - Zg) *
-                                (Qmax - currectQmainI)) /
-                            (currectQmainI * currectQadditionalI);
-                        t3 = t3.toFixed(2);
-                        console.log("Расчёт по формуле Qi < Qs");
-
-                        console.log(Zg);
-                        console.log(t1);
-                        console.log(t2);
-                        console.log(t3);
+                        t1 = calculateZgt1t2t3QiNotMoreQs(
+                            Tp,
+                            Qmax,
+                            currectQmainI,
+                            currectQMainPlusAdditionalI,
+                            Zt,
+                            currectQadditionalI
+                        );
                     }
                 }
-                //Расчёт Zг t1 t2 t3
+                if (i != 0) {
+                    new_Tp = Tp - t1;
+                    console.log(new_Tp);
+                }
             } else {
                 // стр. 111 блок 19
                 if (
@@ -239,24 +369,131 @@ calculateNode.addEventListener("click", () => {
                     objectAllInfoAboutMainAndAdditionCars.length - 1
                 ) {
                     //Расчет Zп t2 t3
-                } else {
-                    // стр. 111 блок 20
-                    if (i != 0) {
-                        // стр. 111 блок 21
-                        //Расчет Tp = Tp + t4
+                    if (currectQmainI > currectQmainS) {
+                        if (currectQmainI == Qmax) {
+                            calculateZgt2t3QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS
+                            );
+                        } else {
+                            if (t3i > 0) {
+                                calculateZgt2t3QiMoreQs(
+                                    Tp,
+                                    Qmax,
+                                    currectQmainI,
+                                    currectQmainS,
+                                    Zt,
+                                    currectQMainPlusAdditionalS,
+                                    currectQadditionalS
+                                );
+                            } else {
+                                //Расчёт Zг t2 t3 по формуле Qi < Qs
+                                calculateZgt2t3QiNotMoreQs(
+                                    Tp,
+                                    Qmax,
+                                    currectQmainI,
+                                    currectQMainPlusAdditionalI,
+                                    Zt,
+                                    currectQadditionalI
+                                );
+                            }
+                        }
+                    } else {
+                        if (t3i > 0) {
+                            //Расчёт Zг t2 t3 по формуле Qi > Qs
+                            calculateZgt2t3QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS
+                            );
+                        } else {
+                            //Расчёт Zг t2 t3 по формуле Qi < Qs
+                            calculateZgt2t3QiNotMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQMainPlusAdditionalI,
+                                Zt,
+                                currectQadditionalI
+                            );
+                        }
                     }
-                    // стр. 111 блок 22
+                    if (i != 0) {
+                        new_Tp = Tp + t4;
+                        console.log(new_Tp);
+                    }
+                } else {
                     //Расчёт Zp t2 t3 t4
+                    if (currectQmainI > currectQmainS) {
+                        if (currectQmainI == Qmax) {
+                            t4 = calculateZgt2t3t4QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS
+                            );
+                        } else {
+                            if (t3i > 0) {
+                                t4 = calculateZgt2t3t4QiMoreQs(
+                                    Tp,
+                                    Qmax,
+                                    currectQmainS,
+                                    Zt,
+                                    currectQMainPlusAdditionalS,
+                                    currectQadditionalS
+                                );
+                            } else {
+                                //Расчёт Zг t2 t3 t4 по формуле Qi < Qs
+                                t4 = calculateZgt2t3t4QiNotMoreQs =
+                                    (Tp,
+                                    Qmax,
+                                    currectQmainI,
+                                    currectQMainPlusAdditionalI,
+                                    Zt,
+                                    currectQadditionalI,
+                                    currectQmainS);
+                            }
+                        }
+                    } else {
+                        if (t3i > 0) {
+                            //Расчёт Zг t1 t2 t3 по формуле Qi > Qs
+                            t4 = calculateZgt2t3t4QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS
+                            );
+                        } else {
+                            //Расчёт Zг t1 t2 t3 по формуле Qi < Qs
+                            t4 = calculateZgt2t3t4QiNotMoreQs =
+                                (Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQMainPlusAdditionalI,
+                                Zt,
+                                currectQadditionalI,
+                                currectQmainS);
+                        }
+                    }
+                    if (i != 0) {
+                        new_Tp = Tp + t4;
+                        console.log(new_Tp);
+                    }
                 }
-                //
             }
-
-            //ЗАПИСЬ ДАННЫХ В ОБЪЕКТ ПО МЕСЯЦАМ И МАШИНАМ
-            // resultCalculated[month] = {
-            //     ...resultCalculated[month],
-            //     [currectCar]: { t1: 5, t2: 6 },
-            // };
-            // console.log(resultCalculated);
         }
     }
 });
