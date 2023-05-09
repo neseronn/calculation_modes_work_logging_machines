@@ -282,6 +282,7 @@ calculateNode.addEventListener("click", () => {
     let Zt;
     //Qсреднее
     let Qavg = Number(avgStockNode.value);
+    let Qmean = Number(totalStockNode.value);
     console.log(Qavg);
     for (
         let indexMonth = 0;
@@ -462,6 +463,9 @@ calculateNode.addEventListener("click", () => {
                     }
                 }
             }
+            Qmean -= Number(Qmax) * Number(Tp);
+            console.log("Pm = " + Number(Qmax) * Number(Tp));
+            console.log("Qz = " + Qmean);
         }
     }
 });
