@@ -241,15 +241,14 @@ let calculateZgt2t3t4QiMoreQs = (
     currectQMainPlusAdditionalI
 ) => {
     console.log("Данные для расчёта zg t2 t3 t4 Qi > Qs");
-    console.log(Tp);
-    console.log(currectQmainS);
-    console.log(Zt);
-    console.log(Qmax);
-    console.log(currectQmainS);
-    console.log(currectQMainPlusAdditionalS);
-    console.log(currectQadditionalS);
-    console.log(currectQMainPlusAdditionalI);
-    console.log(Zt);
+    console.log("Тп = " + Tp);
+    console.log("Qi = " + currectQmainS);
+    console.log("Zt = " + Zt);
+    console.log("Qmax = " + Qmax);
+    console.log("Qs = " + currectQmainS);
+    console.log("Qs+d = " + currectQMainPlusAdditionalS);
+    console.log("Qsd = " + currectQadditionalS);
+    console.log("Qi+d = " + currectQMainPlusAdditionalI);
     //Расчёт Zг t2 t3 t4 по формуле Qi > Qs
     let Zg =
         ((Tp * currectQmainS - Zt) *
@@ -289,7 +288,9 @@ calculateNode.addEventListener("click", () => {
         indexMonth < objectAllInfoAboutMainAndAdditionCars.length;
         indexMonth++
     ) {
+        console.log("Расчёт для месяца номер: " + indexMonth + 1);
         for (let i = 0; i < allCars.length - 1; i++) {
+            console.log("Расчёт для пары номер: " + i + 1);
             // let currectCar = allCars[i] + allCars[i + 1];
             let currectQmainI =
                 objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmain[i];
