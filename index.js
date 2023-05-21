@@ -282,6 +282,8 @@ calculateNode.addEventListener("click", () => {
     //Qсреднее
     let Qavg = Number(avgStockNode.value);
     let Qmean = Number(totalStockNode.value);
+    let Ksm = Number(shiftsNumberNode.value);
+    let Psm = Number(replaceableMachinePerformanceNode.value);
     console.log(Qavg);
     for (
         let indexMonth = 0;
@@ -290,6 +292,8 @@ calculateNode.addEventListener("click", () => {
     ) {
         let Tp = objectAllInfoAboutMainAndAdditionCars[indexMonth].Tp;
         let Qmax = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax;
+        let Qmin = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmin;
+
         wasPairWereQiEqualQmax = false;
         console.log("Расчёт для месяца номер: " + indexMonth + 1);
         for (let i = 0; i < allCars.length - 1; i++) {
@@ -442,8 +446,19 @@ calculateNode.addEventListener("click", () => {
                 }
             }
         }
+        let Qo = Number(Qmin) * Number(Tp);
+        console.log("Qo = " + Qo);
+
+        let Pm = Number(Qmax) * Number(Tp);
+        console.log("Pm = " + Pm);
+
+        let Qd = Pm - Qo;
+        console.log("Qd = " + Qd);
+
+        let Nm = Pm / (Psm * Ksm);
+        console.log("Nm = " + Nm);
+
         Qmean -= Number(Qmax) * Number(Tp);
-        console.log("Pm = " + Number(Qmax) * Number(Tp));
         console.log("Qz = " + Qmean);
     }
 });
@@ -706,7 +721,7 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth, cars) => {
       <div class="column parameter-name">
         <p>Число машин</p>
         <p>Число смен</p>
-        <p>Смен выработки</p>
+        <p>Сменная выработка</p>
       </div>
       `;
         for (let car of cars) {
@@ -723,7 +738,7 @@ let generatedIdForBasicAndAdditionalTable = (firstMonth, countMonth, cars) => {
       <div class="column parameter-name">
         <p>Число машин</p>
         <p>Число смен</p>
-        <p>Смен выработки</p>
+        <p>Сменная выработка</p>
       </div>`;
         for (let car of cars) {
             monthsNode += `
