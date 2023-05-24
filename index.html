@@ -1,273 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Главная</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./index.js" defer></script>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Главная</title>
+        <link rel="stylesheet" href="./style.css" />
+        <script src="./index.js" defer></script>
+    </head>
 
-  <body>
-    <main>
-      <div class="container1">
-        <div class="input-data">
-          <form action="">
-            <h2>Общие данные</h2>
-            <div class="form-input">
-              <label for="" class="form-label">Количество месяцев</label>
-              <input
-                class="input"
-                type="number"
-                name=""
-                id="month-count"
-                min="1" />
+    <body>
+        <main>
+            <div class="container1">
+                <div class="input-data">
+                    <form action="">
+                        <h2>Общие данные</h2>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Количество месяцев</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="month-count"
+                                min="1"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Первый месяц</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="first-month"
+                                min="1"
+                                max="12"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label">Марка</label>
+                            <input
+                                class="input"
+                                type="text"
+                                name=""
+                                id="mark"
+                                min="1"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Общий запас на лесосеке (кбм)</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="total-stock"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Средний запас на лесосеке (кбм/га)</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="avg-stock"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Длина зоны вырубки (м)</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="zone-length"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Число смен в один день на вывозке</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="shifts-number"
+                            />
+                        </div>
+                        <div class="form-input">
+                            <label for="" class="form-label"
+                                >Сменная производительность машин на вывозке
+                                (кбм в смену)</label
+                            >
+                            <input
+                                class="input"
+                                type="number"
+                                name=""
+                                id="replaceable-machine-performance"
+                            />
+                        </div>
+                    </form>
+                    <button id="repeat-total">Повтор ввода</button>
+                    <button id="confirm-input">Подтвердить ввод</button>
+                </div>
+
+                <form action="">
+                    <h2>Технологическая система</h2>
+                    <div class="select-system">
+                        <div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-t-s-p1"
+                                />
+                                <label for="v-t-s-p1" class="radio-label"
+                                    >В+Т+С+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-s-t-p1"
+                                />
+                                <label for="v-s-t-p1" class="radio-label"
+                                    >В+С+Т+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-s-t-p2"
+                                />
+                                <label for="v-s-t-p2" class="radio-label"
+                                    >В+С+Т+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-t-s-p2"
+                                />
+                                <label for="v-t-s-p2" class="radio-label"
+                                    >В+Т+С+П</label
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-t-s"
+                                />
+                                <label for="v-t-s" class="radio-label"
+                                    >В+Т+С</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-t-p"
+                                />
+                                <label for="v-t-p" class="radio-label"
+                                    >В+Т+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="vsr-t-p"
+                                />
+                                <label for="vsr-t-p" class="radio-label"
+                                    >ВСР+Т+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="v-t"
+                                />
+                                <label for="v-t" class="radio-label">В+Т</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="vsr-t"
+                                />
+                                <label for="vsr-t" class="radio-label"
+                                    >ВСР+Т</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="vt-sr-p"
+                                />
+                                <label for="vt-sr-p" class="radio-label"
+                                    >ВТ+СР+П</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="vt-sr"
+                                />
+                                <label for="vt-sr" class="radio-label"
+                                    >ВТ+СР</label
+                                >
+                            </div>
+                            <div class="form-radio">
+                                <input
+                                    class="radio-input"
+                                    type="radio"
+                                    name="radio"
+                                    id="vt-p"
+                                />
+                                <label for="vt-p" class="radio-label"
+                                    >ВТ+П</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-input">
-              <label for="" class="form-label">Первый месяц</label>
-              <input
-                class="input"
-                type="number"
-                name=""
-                id="first-month"
-                min="1"
-                max="12" />
+
+            <div class="container2">
+                <h1>Ввод данных по машинам</h1>
+                <nav>
+                    <button id="repeat-input-cars">Повтор ввода</button>
+                    <button id="confirm-input-cars">
+                        Подтвердить ввод данных по машинам
+                    </button>
+                    <button id="calculate">Выполнить расчёты</button>
+                </nav>
+                <div id="infoAboutMainAndAdditional"></div>
             </div>
-            <div class="form-input">
-              <label for="" class="form-label">Марка</label>
-              <input class="input" type="text" name="" id="mark" min="1" />
-            </div>
-            <div class="form-input">
-              <label for="" class="form-label"
-                >Общий запас на лесосеке (кбм)</label
-              >
-              <input class="input" type="number" name="" id="total-stock" />
-            </div>
-            <div class="form-input">
-              <label for="" class="form-label"
-                >Средний запас на лесосеке (кбм/га)</label
-              >
-              <input class="input" type="number" name="" id="avg-stock" />
-            </div>
-            <div class="form-input">
-              <label for="" class="form-label">Длина зоны вырубки (м)</label>
-              <input class="input" type="number" name="" id="zone-length" />
-            </div>
-            <div class="form-input">
-              <label for="" class="form-label"
-                >Число смен в один день на вывозке</label
-              >
-              <input class="input" type="number" name="" id="shifts-number" />
-            </div>
-            <div class="form-input">
-              <label for="" class="form-label"
-                >Сменная производительность машин на вывозке (кбм в
-                смену)</label
-              >
-              <input
-                class="input"
-                type="number"
-                name=""
-                id="replaceable-machine-performance" />
-            </div>
-          </form>
-          <button id="repeat-total">Повтор ввода</button>
-          <button id="confirm-input">Подтвердить ввод</button>
+        </main>
+
+        <div class="result-calculated">
+            <h1>Результаты моделирования</h1>
+
+            <!-- Начало для одного месяца -->
+
+            <!-- Конец для одного месяца -->
         </div>
-
-        <form action="">
-          <h2>Технологическая система</h2>
-          <div class="select-system">
-            <div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-t-s-p1" />
-                <label for="v-t-s-p1" class="radio-label">В+Т+С+П</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-s-t-p1" />
-                <label for="v-s-t-p1" class="radio-label">В+С+Т+П</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-s-t-p2" />
-                <label for="v-s-t-p2" class="radio-label">В+С+Т+П</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-t-s-p2" />
-                <label for="v-t-s-p2" class="radio-label">В+Т+С+П</label>
-              </div>
-            </div>
-            <div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-t-s" />
-                <label for="v-t-s" class="radio-label">В+Т+С</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="v-t-p" />
-                <label for="v-t-p" class="radio-label">В+Т+П</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="vsr-t-p" />
-                <label for="vsr-t-p" class="radio-label">ВСР+Т+П</label>
-              </div>
-              <div class="form-radio">
-                <input class="radio-input" type="radio" name="radio" id="v-t" />
-                <label for="v-t" class="radio-label">В+Т</label>
-              </div>
-            </div>
-            <div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="vsr-t" />
-                <label for="vsr-t" class="radio-label">ВСР+Т</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="vt-sr-p" />
-                <label for="vt-sr-p" class="radio-label">ВТ+СР+П</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="vt-sr" />
-                <label for="vt-sr" class="radio-label">ВТ+СР</label>
-              </div>
-              <div class="form-radio">
-                <input
-                  class="radio-input"
-                  type="radio"
-                  name="radio"
-                  id="vt-p" />
-                <label for="vt-p" class="radio-label">ВТ+П</label>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="container2">
-        <h1>Ввод данных по машинам</h1>
-        <nav>
-          <button id="repeat-input-cars">Повтор ввода</button>
-          <button id="confirm-input-cars">
-            Подтвердить ввод данных по машинам
-          </button>
-          <button id="calculate">Выполнить расчёты</button>
-        </nav>
-        <div id="infoAboutMainAndAdditional"></div>
-      </div>
-    </main>
-
-    <div class="result-calculated">
-      <h1>Результаты моделирования</h1>
-
-      <!-- Начало для одного месяца -->
-
-      <div>
-        <h3>Январь, 30 дней работы</h3>
-
-        <div class="table">
-          <!-- Шапка -->
-          <div class="grid-head">
-            <p>Операции</p>
-            <div>
-              <p>Объем запасов</p>
-              <div class="flex">
-                <p class="g-item">Zt</p>
-                <p class="g-item">Zг</p>
-              </div>
-            </div>
-
-            <p>Время создания запасов, t1</p>
-            <p>Время работы с дополнительными машинами, t3</p>
-            <p>Время выработки запасов, t4</p>
-          </div>
-
-          <!-- 1 строка -->
-          <div class="grid-row">
-            <p>В</p>
-            <div class="flex">
-              <p class="g-item">Zt</p>
-              <p class="g-item">Zг</p>
-            </div>
-
-            <p>t1</p>
-            <p>t3</p>
-            <p>t4</p>
-          </div>
-
-          <!-- 2 строка -->
-          <div class="grid-row">
-            <p>Т</p>
-            <div class="flex">
-              <p class="g-item">Zt</p>
-              <p class="g-item">Zг</p>
-            </div>
-
-            <p>t1</p>
-            <p>t3</p>
-            <p>t4</p>
-          </div>
-
-          <!-- 3 строка -->
-          <div class="grid-row">
-            <p>С</p>
-            <div class="flex">
-              <p class="g-item">Zt</p>
-              <p class="g-item">Zг</p>
-            </div>
-
-            <p>t1</p>
-            <p>t3</p>
-            <p>t4</p>
-          </div>
-        </div>
-
-        <div class="info">
-            <h4>Объем производства: V</h4>
-            <h4>Число дополнительных машин: V</h4>
-            <h4>Всего: V</h4>
-            <h4>Ежедневная потребность машин на вывозке: V</h4>
-        </div>
-      </div>
-
-      <!-- Конец для одного месяца -->
-    </div>
-  </body>
+    </body>
 </html>

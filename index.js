@@ -6,7 +6,7 @@ let confirmInputNode = document.querySelector("#confirm-input");
 let repeatInputCarsNode = document.querySelector("#repeat-input-cars");
 let confirmInputCarsNode = document.querySelector("#confirm-input-cars");
 let calculateNode = document.querySelector("#calculate");
-let resultCalculatedNode = document.querySelector("#result-calculated");
+let resultCalculatedNode = document.querySelector(".result-calculated");
 /*
 Переменные хранящие узлы Общих данных
 для заполнения и дальнейшего использования
@@ -284,6 +284,7 @@ let calculateZgt2t3t4QiMoreQs = (
 };
 
 calculateNode.addEventListener("click", () => {
+    let resultcalcPairCar = [];
     let allCars = infoForCalculated.currectCars;
     let S = infoForCalculated.N + Number(1);
     let Zt;
@@ -302,11 +303,10 @@ calculateNode.addEventListener("click", () => {
         let Qmax = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmax;
         let Qmin = objectAllInfoAboutMainAndAdditionCars[indexMonth].Qmin;
 
+        resultcalcPairCar = [];
         wasPairWereQiEqualQmax = false;
         console.log("Расчёт для месяца номер: " + indexMonth + 1);
         for (let i = 0; i < allCars.length - 1; i++) {
-            let resultcalcPairCar = [];
-
             console.log("Расчёт для пары номер: " + i + 1);
             // let currectCar = allCars[i] + allCars[i + 1];
             let currectQmainI =
@@ -380,7 +380,13 @@ calculateNode.addEventListener("click", () => {
                         currectQMainPlusAdditionalS,
                         currectQadditionalS
                     );
-                    resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t1: t1, t3: t3 });
+                    resultcalcPairCar.push({
+                        car: allCars[i] + "-" + allCars[i + 1],
+                        Zt: Number(Zt),
+                        Zg: Number(Zg),
+                        t1: Number(t1),
+                        t3: Number(t3),
+                    });
                     wasPairWereQiEqualQmax = true;
                 } else {
                     [Zg, t1, t3] = calculateZgt1t2t3QiNotMoreQs(
@@ -391,7 +397,13 @@ calculateNode.addEventListener("click", () => {
                         Zt,
                         currectQadditionalI
                     );
-                    resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t1: t1, t3: t3 });
+                    resultcalcPairCar.push({
+                        car: allCars[i] + "-" + allCars[i + 1],
+                        Zt: Number(Zt),
+                        Zg: Number(Zg),
+                        t1: Number(t1),
+                        t3: Number(t3),
+                    });
                 }
                 if (i != 0) {
                     new_Tp = Tp - t1;
@@ -419,7 +431,12 @@ calculateNode.addEventListener("click", () => {
                             currectQadditionalS,
                             currectQMainPlusAdditionalI
                         );
-                        resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t3: t3 });
+                        resultcalcPairCar.push({
+                            car: allCars[i] + "-" + allCars[i + 1],
+                            Zt: Number(Zt),
+                            Zg: Number(Zg),
+                            t3: Number(t3),
+                        });
                         wasPairWereQiEqualQmax = true;
                     } else {
                         [Zg, t3] = calculateZgt2t3QiNotMoreQs(
@@ -430,7 +447,12 @@ calculateNode.addEventListener("click", () => {
                             Zt,
                             currectQadditionalI
                         );
-                        resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t3: t3 });
+                        resultcalcPairCar.push({
+                            car: allCars[i] + "-" + allCars[i + 1],
+                            Zt: Number(Zt),
+                            Zg: Number(Zg),
+                            t3: Number(t3),
+                        });
                     }
                 } else {
                     //Расчёт Zp t2 t3 t4
@@ -449,10 +471,11 @@ calculateNode.addEventListener("click", () => {
                             currectQMainPlusAdditionalI
                         );
                         resultcalcPairCar.push({
-                            Zt: Zt,
-                            Zg: Zg,
-                            t3: t3,
-                            t4: t4,
+                            car: allCars[i] + "-" + allCars[i + 1],
+                            Zt: Number(Zt),
+                            Zg: Number(Zg),
+                            t3: Number(t3),
+                            t4: Number(t4),
                         });
                         wasPairWereQiEqualQmax = true;
                     } else {
@@ -466,10 +489,11 @@ calculateNode.addEventListener("click", () => {
                             currectQmainS
                         );
                         resultcalcPairCar.push({
-                            Zt: Zt,
-                            Zg: Zg,
-                            t3: t3,
-                            t4: t4,
+                            car: allCars[i] + "-" + allCars[i + 1],
+                            Zt: Number(Zt),
+                            Zg: Number(Zg),
+                            t3: Number(t3),
+                            t4: Number(t4),
                         });
                     }
                 }
@@ -484,14 +508,230 @@ calculateNode.addEventListener("click", () => {
         let Qd = Pm - Qo;
         console.log("Qd = " + Qd);
 
-        let Nm = Pm / (Psm * Ksm);
+        let Nm = Math.round(Pm / (Psm * Ksm));
         console.log("Nm = " + Nm);
 
         Qmean -= Number(Qmax) * Number(Tp);
         console.log("Qz = " + Qmean);
-        resultVCars.push({ Qo: Qo, Pm: Pm, Qd: Qd, Nm: Nm });
+        resultVCars.push({ Tp: Tp, Qo: Qo, Pm: Pm, Qd: Qd, Nm: Nm });
         resultCalculated.push(resultcalcPairCar);
     }
+    console.log(resultVCars);
+    console.log(resultCalculated);
+    let monthName = new Date(2023, firstMonthNode.value - 1, 1).toLocaleString(
+        "ru",
+        {
+            month: "long",
+        }
+    );
+    let newMonth = [];
+
+    if (Number(monthCountNode.value) == 1) {
+        newMonth += `<div><h3> ${monthName} ${resultVCars[0].Tp} дней работы</h3>
+        <div class="table">
+            <div class="grid-head">
+                <p>Операции</p>
+                <div>
+                    <p>Объем запасов</p>
+                    <div class="flex">
+                        <p class="g-item">Zt</p>
+                        <p class="g-item">Zг</p>
+                    </div>
+                </div>
+
+                <p>Время создания запасов, t1</p>
+                <p>Время работы с дополнительными машинами, t3</p>
+            </div>`;
+        for (let i = 0; i < resultCalculated[0].length; i++) {
+            newMonth += `<div class="grid-row">
+            <p>${resultCalculated[0][i].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[0][i].Zt}</p>
+                <p class="g-item">${resultCalculated[0][i].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[0][i].t1}</p>
+            <p>${resultCalculated[0][i].t3}</p>
+        </div>`;
+        }
+        newMonth += `</div>
+    <div class="info">
+                <h4>Объем производства: ${resultVCars[0].Qo}</h4>
+                <h4>Число дополнительных машин: ${resultVCars[0].Qd}</h4>
+                <h4>Всего: ${resultVCars[0].Pm}</h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm}</h4>
+            </div>
+        </div>`;
+    } else if (Number(monthCountNode.value) == 2) {
+        let fitstMonthRU = new Date(
+            2023,
+            firstMonthNode.value - 1,
+            1
+        ).toLocaleString("ru", {
+            month: "long",
+        });
+        let secondMonthRU = new Date(
+            2023,
+            firstMonthNode.value,
+            1
+        ).toLocaleString("ru", {
+            month: "long",
+        });
+        newMonth += `<div><h3> ${fitstMonthRU} ${resultVCars[0].Tp} дней работы</h3>
+        <div class="table">
+            <div class="grid-head">
+                <p>Операции</p>
+                <div>
+                    <p>Объем запасов</p>
+                    <div class="flex">
+                        <p class="g-item">Zt</p>
+                        <p class="g-item">Zг</p>
+                    </div>
+                </div>
+
+                <p>Время создания запасов, t1</p>
+                <p>Время работы с дополнительными машинами, t3</p>
+            </div>`;
+        for (let i = 0; i < resultCalculated[0].length; i++) {
+            newMonth += `<div class="grid-row">
+            <p>${resultCalculated[0][i].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[0][i].Zt}</p>
+                <p class="g-item">${resultCalculated[0][i].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[0][i].t1}</p>
+            <p>${resultCalculated[0][i].t3}</p>
+        </div>`;
+        }
+        newMonth += `</div>
+    <div class="info">
+                <h4>Объем производства: ${resultVCars[0].Qo}</h4>
+                <h4>Число дополнительных машин: ${resultVCars[0].Qd}</h4>
+                <h4>Всего: ${resultVCars[0].Pm}</h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm}</h4>
+            </div>
+        </div>`;
+        //2
+
+        newMonth += `<div><h3> ${secondMonthRU} ${resultVCars[1].Tp} дней работы</h3>
+        <div class="table">
+            <div class="grid-head">
+                <p>Операции</p>
+                <div>
+                    <p>Объем запасов</p>
+                    <div class="flex">
+                        <p class="g-item">Zt</p>
+                        <p class="g-item">Zг</p>
+                    </div>
+                </div>
+
+                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Время выработки запасов, t4</p>
+            </div>`;
+        for (let i = 0; i < resultCalculated[1].length; i++) {
+            newMonth += `<div class="grid-row">
+            <p>${resultCalculated[1][i].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[1][i].Zt}</p>
+                <p class="g-item">${resultCalculated[1][i].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[1][i].t3}</p>
+            <p>${resultCalculated[1][i].t4}</p>
+        </div>`;
+        }
+        newMonth += `</div>
+    <div class="info">
+                <h4>Объем производства: ${resultVCars[1].Qo}</h4>
+                <h4>Число дополнительных машин: ${resultVCars[1].Qd}</h4>
+                <h4>Всего: ${resultVCars[1].Pm}</h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[1].Nm}</h4>
+            </div>
+        </div>`;
+    } else {
+        for (let i = 0; i < Number(monthCountNode.value); i++) {
+            let currectMonthRU = new Date(
+                2023,
+                firstMonthNode.value + i - 2,
+                1
+            ).toLocaleString("ru", {
+                month: "long",
+            });
+            newMonth += `<div><h3> ${currectMonthRU} ${resultVCars[i].Tp} дней работы</h3>
+        <div class="table">
+            <div class="grid-head">
+                <p>Операции</p>
+                <div>
+                    <p>Объем запасов</p>
+                    <div class="flex">
+                        <p class="g-item">Zt</p>
+                        <p class="g-item">Zг</p>
+                    </div>
+                </div>`;
+            if (i == 0) {
+                newMonth += `
+                <p>Время создания запасов, t1</p>
+                <p>Время работы с дополнительными машинами, t3</p>
+            </div>`;
+                for (let j = 0; j < resultCalculated[i].length; j++) {
+                    newMonth += `<div class="grid-row">
+            <p>${resultCalculated[i][j].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[i][j].Zt}</p>
+                <p class="g-item">${resultCalculated[i][j].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[i][j].t1}</p>
+            <p>${resultCalculated[i][j].t3}</p>
+        </div>`;
+                }
+            } else if (i == Number(monthCountNode.value) - 1) {
+                newMonth += `
+                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Время выработки запасов, t4</p>
+            </div>`;
+                for (let j = 0; j < resultCalculated[i].length; j++) {
+                    newMonth += `<div class="grid-row">
+            <p>${resultCalculated[i][j].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[i][j].Zt}</p>
+                <p class="g-item">${resultCalculated[i][j].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[i][j].t3}</p>
+            <p>${resultCalculated[i][j].t4}</p>
+        </div>`;
+                }
+            } else {
+                newMonth += `
+                <p>Время работы с дополнительными машинами, t3</p>
+            </div>`;
+                for (let j = 0; j < resultCalculated[i].length; j++) {
+                    newMonth += `<div class="grid-row">
+            <p>${resultCalculated[i][j].car}</p>
+            <div class="flex">
+                <p class="g-item">${resultCalculated[i][j].Zt}</p>
+                <p class="g-item">${resultCalculated[i][j].Zg}</p>
+            </div>
+
+            <p>${resultCalculated[i][j].t3}</p>
+        </div>`;
+                }
+            }
+            newMonth += `</div>
+    <div class="info">
+                <h4>Объем производства: ${resultVCars[i].Qo}</h4>
+                <h4>Число дополнительных машин: ${resultVCars[i].Qd}</h4>
+                <h4>Всего: ${resultVCars[i].Pm}</h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[i].Nm}</h4>
+            </div>
+        </div>`;
+        }
+    }
+    resultVCars = [];
+    resultCalculated = [];
+    resultCalculatedNode.innerHTML = newMonth;
 });
 /*
 Вывод ввода данных для основных и дополнительных машин
@@ -571,7 +811,7 @@ repeatTotalNode.addEventListener("click", () => {
 confirmInputCarsNode.addEventListener("click", () => {
     let countPairs = 0;
     objectAllInfoAboutMainAndAdditionCars = [];
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i <= 11; i++) {
         if (allRadioButtonNode[i].checked) {
             countPairs = allRadioButtonNode[i].id.split("-").length - 1;
         }

@@ -85,3 +85,76 @@
               <!-- ... -->
             </div>
           </div>
+
+
+
+
+
+
+<div>
+                <h3>Январь, 30 дней работы</h3>
+
+                <div class="table">
+                    <!-- Шапка -->
+                    <div class="grid-head">
+                        <p>Операции</p>
+                        <div>
+                            <p>Объем запасов</p>
+                            <div class="flex">
+                                <p class="g-item">Zt</p>
+                                <p class="g-item">Zг</p>
+                            </div>
+                        </div>
+
+                        <p>Время создания запасов, t1</p>
+                        <p>Время работы с дополнительными машинами, t3</p>
+                        <p>Время выработки запасов, t4</p>
+                    </div>
+
+                    <!-- 1 строка -->
+                    <div class="grid-row">
+                        <p>В</p>
+                        <div class="flex">
+                            <p class="g-item">Zt</p>
+                            <p class="g-item">Zг</p>
+                        </div>
+
+                        <p>t1</p>
+                        <p>t3</p>
+                        <p>t4</p>
+                    </div>
+
+                    <!-- 2 строка -->
+                    <div class="grid-row">
+                        <p>Т</p>
+                        <div class="flex">
+                            <p class="g-item">Zt</p>
+                            <p class="g-item">Zг</p>
+                        </div>
+
+                        <p>t1</p>
+                        <p>t3</p>
+                        <p>t4</p>
+                    </div>
+
+                    <!-- 3 строка -->
+                    <div class="grid-row">
+                        <p>С</p>
+                        <div class="flex">
+                            <p class="g-item">Zt</p>
+                            <p class="g-item">Zг</p>
+                        </div>
+
+                        <p>t1</p>
+                        <p>t3</p>
+                        <p>t4</p>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <h4>Объем производства: V</h4>
+                    <h4>Число дополнительных машин: V</h4>
+                    <h4>Всего: V</h4>
+                    <h4>Ежедневная потребность машин на вывозке: V</h4>
+                </div>
+            </div>
