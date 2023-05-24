@@ -6,6 +6,7 @@ let confirmInputNode = document.querySelector("#confirm-input");
 let repeatInputCarsNode = document.querySelector("#repeat-input-cars");
 let confirmInputCarsNode = document.querySelector("#confirm-input-cars");
 let calculateNode = document.querySelector("#calculate");
+let resultCalculatedNode = document.querySelector("#result-calculated");
 /*
 Переменные хранящие узлы Общих данных
 для заполнения и дальнейшего использования
@@ -22,7 +23,10 @@ let replaceableMachinePerformanceNode = document.querySelector(
 );
 let objectAllInfoAboutMainAndAdditionCars = [];
 let infoForCalculated = {};
-let resultCalculated = {};
+
+let resultCalculated = [];
+let resultVCars = [];
+
 /*
 Функции расчётов по введёным данным
 алгоритм (блок-схема) описаный в книге
@@ -68,7 +72,7 @@ let calculateZgt1t2t3QiNotMoreQs = (
     console.log(t1);
     console.log(t2);
     console.log(t3);
-    return t1;
+    return [Zg, t1, t3];
 };
 
 let calculateZgt1t2t3QiMoreQs = (
@@ -111,7 +115,7 @@ let calculateZgt1t2t3QiMoreQs = (
     console.log(t1);
     console.log(t2);
     console.log(t3);
-    return t1;
+    return [Zg, t1, t3];
 };
 
 //Расчет блока 23
@@ -147,6 +151,7 @@ let calculateZgt2t3QiNotMoreQs = (
     console.log(Zg);
     console.log(t2);
     console.log(t3);
+    return [Zg, t3];
 };
 
 let calculateZgt2t3QiMoreQs = (
@@ -183,6 +188,7 @@ let calculateZgt2t3QiMoreQs = (
     console.log(Zg);
     console.log(t2);
     console.log(t3);
+    return [Zg, t3];
 };
 
 //Расчёт Блока 22 в учебнике
@@ -229,6 +235,7 @@ let calculateZgt2t3t4QiNotMoreQs = (
     console.log(t2);
     console.log(t3);
     console.log(t4);
+    return [Zg, t3, t4];
 };
 
 let calculateZgt2t3t4QiMoreQs = (
@@ -273,6 +280,7 @@ let calculateZgt2t3t4QiMoreQs = (
     console.log(t2);
     console.log(t3);
     console.log(t4);
+    return [Zg, t3, t4];
 };
 
 calculateNode.addEventListener("click", () => {
@@ -297,6 +305,8 @@ calculateNode.addEventListener("click", () => {
         wasPairWereQiEqualQmax = false;
         console.log("Расчёт для месяца номер: " + indexMonth + 1);
         for (let i = 0; i < allCars.length - 1; i++) {
+            let resultcalcPairCar = [];
+
             console.log("Расчёт для пары номер: " + i + 1);
             // let currectCar = allCars[i] + allCars[i + 1];
             let currectQmainI =
@@ -317,7 +327,10 @@ calculateNode.addEventListener("click", () => {
             let currectQMainPlusAdditionalS =
                 objectAllInfoAboutMainAndAdditionCars[indexMonth]
                     .QmainPlusAdditional[i + 1];
-            let t3i = 0;
+
+            let Zg;
+            let t2;
+            let t3;
             let t4;
             let t1;
             console.log(currectQMainPlusAdditionalI);
@@ -358,7 +371,7 @@ calculateNode.addEventListener("click", () => {
             if (indexMonth == 0) {
                 if (currectQmainI == Qmax || wasPairWereQiEqualQmax == true) {
                     currectQmainI = Qmax;
-                    t1 = calculateZgt1t2t3QiMoreQs(
+                    [Zg, t1, t3] = calculateZgt1t2t3QiMoreQs(
                         Tp,
                         Qmax,
                         currectQmainI,
@@ -367,9 +380,10 @@ calculateNode.addEventListener("click", () => {
                         currectQMainPlusAdditionalS,
                         currectQadditionalS
                     );
+                    resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t1: t1, t3: t3 });
                     wasPairWereQiEqualQmax = true;
                 } else {
-                    t1 = calculateZgt1t2t3QiNotMoreQs(
+                    [Zg, t1, t3] = calculateZgt1t2t3QiNotMoreQs(
                         Tp,
                         Qmax,
                         currectQmainI,
@@ -377,6 +391,7 @@ calculateNode.addEventListener("click", () => {
                         Zt,
                         currectQadditionalI
                     );
+                    resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t1: t1, t3: t3 });
                 }
                 if (i != 0) {
                     new_Tp = Tp - t1;
@@ -394,7 +409,7 @@ calculateNode.addEventListener("click", () => {
                         wasPairWereQiEqualQmax == true
                     ) {
                         currectQmainI = Qmax;
-                        calculateZgt2t3QiMoreQs(
+                        [Zg, t3] = calculateZgt2t3QiMoreQs(
                             Tp,
                             Qmax,
                             currectQmainI,
@@ -404,9 +419,10 @@ calculateNode.addEventListener("click", () => {
                             currectQadditionalS,
                             currectQMainPlusAdditionalI
                         );
+                        resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t3: t3 });
                         wasPairWereQiEqualQmax = true;
                     } else {
-                        calculateZgt2t3QiNotMoreQs(
+                        [Zg, t3] = calculateZgt2t3QiNotMoreQs(
                             Tp,
                             Qmax,
                             currectQmainI,
@@ -414,6 +430,7 @@ calculateNode.addEventListener("click", () => {
                             Zt,
                             currectQadditionalI
                         );
+                        resultcalcPairCar.push({ Zt: Zt, Zg: Zg, t3: t3 });
                     }
                 } else {
                     //Расчёт Zp t2 t3 t4
@@ -422,7 +439,7 @@ calculateNode.addEventListener("click", () => {
                         wasPairWereQiEqualQmax == true
                     ) {
                         currectQmainI = Qmax;
-                        calculateZgt2t3t4QiMoreQs(
+                        [Zg, t3, t4] = calculateZgt2t3t4QiMoreQs(
                             Tp,
                             Qmax,
                             currectQmainS,
@@ -431,9 +448,15 @@ calculateNode.addEventListener("click", () => {
                             currectQadditionalS,
                             currectQMainPlusAdditionalI
                         );
+                        resultcalcPairCar.push({
+                            Zt: Zt,
+                            Zg: Zg,
+                            t3: t3,
+                            t4: t4,
+                        });
                         wasPairWereQiEqualQmax = true;
                     } else {
-                        calculateZgt2t3t4QiNotMoreQs(
+                        [Zg, t3, t4] = calculateZgt2t3t4QiNotMoreQs(
                             Tp,
                             Qmax,
                             currectQmainI,
@@ -442,6 +465,12 @@ calculateNode.addEventListener("click", () => {
                             currectQadditionalI,
                             currectQmainS
                         );
+                        resultcalcPairCar.push({
+                            Zt: Zt,
+                            Zg: Zg,
+                            t3: t3,
+                            t4: t4,
+                        });
                     }
                 }
             }
@@ -460,6 +489,8 @@ calculateNode.addEventListener("click", () => {
 
         Qmean -= Number(Qmax) * Number(Tp);
         console.log("Qz = " + Qmean);
+        resultVCars.push({ Qo: Qo, Pm: Pm, Qd: Qd, Nm: Nm });
+        resultCalculated.push(resultcalcPairCar);
     }
 });
 /*

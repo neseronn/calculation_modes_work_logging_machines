@@ -32,4 +32,11 @@
 //     });
 //     console.log(monthName + i);
 // }
-1 != 1;
+
+let some = [];
+for (let i = 0; i <= 10; i++) {
+    some.push({});
+    for (let j = 0; j <= 2; j++) {
+        some[i];
+    }
+}
