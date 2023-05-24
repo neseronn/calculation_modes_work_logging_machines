@@ -89,7 +89,7 @@ main {
   display: flex;
   align-items: center;
 }
-.machine-header>p {
+.machine-header > p {
   margin: 0 20px;
 }
 
@@ -97,7 +97,7 @@ main {
   display: flex;
   margin: 0 20px;
 }
-.flex-header>p {
+.flex-header > p {
   margin: 0 20px;
 }
 
@@ -115,7 +115,9 @@ main {
   align-items: center;
 }
 
-.machine-marks-column .mark-input, .main-input, .additional-input {
+.machine-marks-column .mark-input,
+.main-input,
+.additional-input {
   width: 20px;
 }
 
@@ -127,7 +129,8 @@ main {
   margin: 20px 0;
 }
 
-.month, .work-days {
+.month,
+.work-days {
   margin: 0 15px;
 }
 
@@ -145,8 +148,63 @@ main {
   flex-direction: column;
 }
 
-.additional-data, .main-data {
+.additional-data,
+.main-data {
   display: flex;
   margin: 0 22px;
 }
 
+/* результаты */
+
+.result-calculated {
+  position: relative;
+  width: 90%;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.table {
+  width: 100%;
+  height: 200px;
+}
+
+.grid-head {
+  width: 100%;
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  justify-items:center;
+  grid-template-rows: 1fr;
+}
+
+.grid-row {
+  width: 100%;
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  justify-items:center;
+  grid-template-rows: 1fr;
+}
+
+.grid-head>*, .grid-row>* {
+  width: 100%;
+  justify-self: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.g-item {
+  width: 50%;
+}
+
+/* информация по месяцу ниже */
+
+.info {
+  
+}
