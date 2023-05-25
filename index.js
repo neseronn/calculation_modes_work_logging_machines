@@ -653,7 +653,7 @@ calculateNode.addEventListener("click", () => {
         for (let i = 0; i < Number(monthCountNode.value); i++) {
             let currectMonthRU = new Date(
                 2023,
-                firstMonthNode.value + i - 2,
+                firstMonthNode.value + i - 4,
                 1
             ).toLocaleString("ru", {
                 month: "long",
