@@ -283,6 +283,112 @@ let calculateZgt2t3t4QiMoreQs = (
     return [Zg, t3, t4];
 };
 
+let calculateZgt1t2t3t4QiNotMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQMainPlusAdditionalI,
+    Zt,
+    currectQadditionalI,
+    currectQmainS
+) => {
+    console.log("Данные для расчёта zg t1 t2 t3 t4 Qi < Qs");
+    console.log("Qmax = " + Qmax);
+    console.log("Tp = " + Tp);
+    console.log("Qi = " + currectQmainI);
+    console.log("Qi+d = " + currectQMainPlusAdditionalI);
+    console.log("Qid = " + currectQadditionalI);
+    console.log("Qs = " + currectQmainS);
+    console.log("Zt = " + Zt);
+    //Расчёт Zг t1 t2 t3 t4 по формуле Qi < Qs
+    let Zg =
+        (Tp *
+            currectQmainI *
+            currectQmainS *
+            (currectQmainS - currectQmainI) *
+            (currectQMainPlusAdditionalI - currectQmainS) +
+            Zt * currectQmainI * currectQmainS * currectQadditionalI) /
+        ((currectQmainS - currectQmainI) *
+            (currectQMainPlusAdditionalI - currectQmainS) *
+            (currectQmainS + currectQmainI) +
+            currectQmainI * currectQmainS * currectQadditionalI);
+    Zg = Zg.toFixed(1);
+
+    t1 = Zg / currectQmainI;
+    t1 = t1.toFixed(2);
+
+    t2 = (Zg - Zt) / (currectQmainS - currectQmainI);
+    t2 = t2.toFixed(2);
+
+    t3 = (Zg - Zt) / (currectQMainPlusAdditionalI - currectQmainS);
+    t3 = t3.toFixed(2);
+
+    t4 = Zg / currectQmainS;
+    t4 = t4.toFixed(2);
+
+    console.log("Расчёт по формуле Qi < Qs");
+
+    console.log("Zg = " + Zg);
+    console.log("t1 = " + t1);
+    console.log("t2 = " + t2);
+    console.log("t3 = " + t3);
+    console.log("t4 = " + t4);
+    return [Zg, t1, t3, t4];
+};
+
+let calculateZgt1t2t3t4QiMoreQs = (
+    Tp,
+    Qmax,
+    currectQmainI,
+    currectQmainS,
+    Zt,
+    currectQMainPlusAdditionalS,
+    currectQadditionalS,
+    currectQMainPlusAdditionalI
+) => {
+    console.log("Данные для расчёта zg t1 t2 t3 t4 Qi > Qs");
+    console.log("Тп = " + Tp);
+    console.log("Qi = " + currectQmainS);
+    console.log("Zt = " + Zt);
+    console.log("Qmax = " + Qmax);
+    console.log("Qs = " + currectQmainS);
+    console.log("Qs+d = " + currectQMainPlusAdditionalS);
+    console.log("Qsd = " + currectQadditionalS);
+    console.log("Qi+d = " + currectQMainPlusAdditionalI);
+    //Расчёт Zг t2 t3 t4 по формуле Qi > Qs
+    let Zg =
+        (Tp *
+            currectQmainI *
+            currectQmainS *
+            (currectQmainI - currectQmainS) *
+            (currectQMainPlusAdditionalS - currectQmainI) +
+            Zt *
+                (currectQmainI * currectQmainS * currectQadditionalS -
+                    (currectQmainI - currectQmainS) *
+                        (currectQMainPlusAdditionalS - currectQmainI) *
+                        (currectQmainS + currectQmainI))) /
+        (currectQmainI * currectQmainS * currectQadditionalS);
+    Zg = Zg.toFixed(1);
+    t1 = Zt / currectQmainI;
+    t1 = t1.toFixed(2);
+    t2 = (Zg - Zt) / (currectQmainI - currectQmainS);
+    t2 = t2.toFixed(2);
+
+    t3 = (Zg - Zt) / (currectQMainPlusAdditionalS - currectQmainI);
+    t3 = t3.toFixed(2);
+
+    t4 = Zt / currectQmainS;
+    t4 = t4.toFixed(2);
+
+    console.log("Расчёт по формуле Qi > Qs");
+
+    console.log(Zg);
+    console.log(t2);
+    console.log(t3);
+    console.log(t4);
+    return [Zg, t1, t3, t4];
+};
+
 calculateNode.addEventListener("click", () => {
     let resultcalcPairCar = [];
     let allCars = infoForCalculated.currectCars;
@@ -368,17 +474,18 @@ calculateNode.addEventListener("click", () => {
                 }
             }
             console.log(Zt);
-            if (indexMonth == 0) {
+            if (objectAllInfoAboutMainAndAdditionCars.length == 1) {
                 if (currectQmainI == Qmax || wasPairWereQiEqualQmax == true) {
                     currectQmainI = Qmax;
-                    [Zg, t1, t3] = calculateZgt1t2t3QiMoreQs(
+                    [Zg, t1, t3, t4] = calculateZgt1t2t3t4QiMoreQs(
                         Tp,
                         Qmax,
                         currectQmainI,
                         currectQmainS,
                         Zt,
                         currectQMainPlusAdditionalS,
-                        currectQadditionalS
+                        currectQadditionalS,
+                        currectQMainPlusAdditionalI
                     );
                     resultcalcPairCar.push({
                         car: allCars[i] + "-" + allCars[i + 1],
@@ -386,16 +493,18 @@ calculateNode.addEventListener("click", () => {
                         Zg: Number(Zg),
                         t1: Number(t1),
                         t3: Number(t3),
+                        t4: Number(t4),
                     });
                     wasPairWereQiEqualQmax = true;
                 } else {
-                    [Zg, t1, t3] = calculateZgt1t2t3QiNotMoreQs(
+                    [Zg, t1, t3, t4] = calculateZgt1t2t3t4QiNotMoreQs(
                         Tp,
                         Qmax,
                         currectQmainI,
                         currectQMainPlusAdditionalI,
                         Zt,
-                        currectQadditionalI
+                        currectQadditionalI,
+                        currectQmainS
                     );
                     resultcalcPairCar.push({
                         car: allCars[i] + "-" + allCars[i + 1],
@@ -403,43 +512,36 @@ calculateNode.addEventListener("click", () => {
                         Zg: Number(Zg),
                         t1: Number(t1),
                         t3: Number(t3),
+                        t4: Number(t4),
                     });
                 }
-                if (i != 0) {
-                    new_Tp = Tp - t1;
-                    console.log("Это tp = tp - t1 = " + new_Tp);
-                }
+                console.log();
             } else {
-                // стр. 111 блок 19
-                if (
-                    indexMonth !=
-                    objectAllInfoAboutMainAndAdditionCars.length - 1
-                ) {
-                    //Расчет Zп t2 t3
+                if (indexMonth == 0) {
                     if (
                         currectQmainI == Qmax ||
                         wasPairWereQiEqualQmax == true
                     ) {
                         currectQmainI = Qmax;
-                        [Zg, t3] = calculateZgt2t3QiMoreQs(
+                        [Zg, t1, t3] = calculateZgt1t2t3QiMoreQs(
                             Tp,
                             Qmax,
                             currectQmainI,
                             currectQmainS,
                             Zt,
                             currectQMainPlusAdditionalS,
-                            currectQadditionalS,
-                            currectQMainPlusAdditionalI
+                            currectQadditionalS
                         );
                         resultcalcPairCar.push({
                             car: allCars[i] + "-" + allCars[i + 1],
                             Zt: Number(Zt),
                             Zg: Number(Zg),
+                            t1: Number(t1),
                             t3: Number(t3),
                         });
                         wasPairWereQiEqualQmax = true;
                     } else {
-                        [Zg, t3] = calculateZgt2t3QiNotMoreQs(
+                        [Zg, t1, t3] = calculateZgt1t2t3QiNotMoreQs(
                             Tp,
                             Qmax,
                             currectQmainI,
@@ -451,50 +553,101 @@ calculateNode.addEventListener("click", () => {
                             car: allCars[i] + "-" + allCars[i + 1],
                             Zt: Number(Zt),
                             Zg: Number(Zg),
+                            t1: Number(t1),
                             t3: Number(t3),
                         });
                     }
+                    if (i != 0) {
+                        new_Tp = Tp - t1;
+                        console.log("Это tp = tp - t1 = " + new_Tp);
+                    }
                 } else {
-                    //Расчёт Zp t2 t3 t4
+                    // стр. 111 блок 19
                     if (
-                        currectQmainI == Qmax ||
-                        wasPairWereQiEqualQmax == true
+                        indexMonth !=
+                        objectAllInfoAboutMainAndAdditionCars.length - 1
                     ) {
-                        currectQmainI = Qmax;
-                        [Zg, t3, t4] = calculateZgt2t3t4QiMoreQs(
-                            Tp,
-                            Qmax,
-                            currectQmainS,
-                            Zt,
-                            currectQMainPlusAdditionalS,
-                            currectQadditionalS,
-                            currectQMainPlusAdditionalI
-                        );
-                        resultcalcPairCar.push({
-                            car: allCars[i] + "-" + allCars[i + 1],
-                            Zt: Number(Zt),
-                            Zg: Number(Zg),
-                            t3: Number(t3),
-                            t4: Number(t4),
-                        });
-                        wasPairWereQiEqualQmax = true;
+                        //Расчет Zп t2 t3
+                        if (
+                            currectQmainI == Qmax ||
+                            wasPairWereQiEqualQmax == true
+                        ) {
+                            currectQmainI = Qmax;
+                            [Zg, t3] = calculateZgt2t3QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS,
+                                currectQMainPlusAdditionalI
+                            );
+                            resultcalcPairCar.push({
+                                car: allCars[i] + "-" + allCars[i + 1],
+                                Zt: Number(Zt),
+                                Zg: Number(Zg),
+                                t3: Number(t3),
+                            });
+                            wasPairWereQiEqualQmax = true;
+                        } else {
+                            [Zg, t3] = calculateZgt2t3QiNotMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQMainPlusAdditionalI,
+                                Zt,
+                                currectQadditionalI
+                            );
+                            resultcalcPairCar.push({
+                                car: allCars[i] + "-" + allCars[i + 1],
+                                Zt: Number(Zt),
+                                Zg: Number(Zg),
+                                t3: Number(t3),
+                            });
+                        }
                     } else {
-                        [Zg, t3, t4] = calculateZgt2t3t4QiNotMoreQs(
-                            Tp,
-                            Qmax,
-                            currectQmainI,
-                            currectQMainPlusAdditionalI,
-                            Zt,
-                            currectQadditionalI,
-                            currectQmainS
-                        );
-                        resultcalcPairCar.push({
-                            car: allCars[i] + "-" + allCars[i + 1],
-                            Zt: Number(Zt),
-                            Zg: Number(Zg),
-                            t3: Number(t3),
-                            t4: Number(t4),
-                        });
+                        //Расчёт Zp t2 t3 t4
+                        if (
+                            currectQmainI == Qmax ||
+                            wasPairWereQiEqualQmax == true
+                        ) {
+                            currectQmainI = Qmax;
+                            [Zg, t3, t4] = calculateZgt2t3t4QiMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainS,
+                                Zt,
+                                currectQMainPlusAdditionalS,
+                                currectQadditionalS,
+                                currectQMainPlusAdditionalI
+                            );
+                            resultcalcPairCar.push({
+                                car: allCars[i] + "-" + allCars[i + 1],
+                                Zt: Number(Zt),
+                                Zg: Number(Zg),
+                                t3: Number(t3),
+                                t4: Number(t4),
+                            });
+                            wasPairWereQiEqualQmax = true;
+                        } else {
+                            [Zg, t3, t4] = calculateZgt2t3t4QiNotMoreQs(
+                                Tp,
+                                Qmax,
+                                currectQmainI,
+                                currectQMainPlusAdditionalI,
+                                Zt,
+                                currectQadditionalI,
+                                currectQmainS
+                            );
+                            resultcalcPairCar.push({
+                                car: allCars[i] + "-" + allCars[i + 1],
+                                Zt: Number(Zt),
+                                Zg: Number(Zg),
+                                t3: Number(t3),
+                                t4: Number(t4),
+                            });
+                        }
                     }
                 }
             }
@@ -508,7 +661,7 @@ calculateNode.addEventListener("click", () => {
         let Qd = Pm - Qo;
         console.log("Qd = " + Qd);
 
-        let Nm = Math.round(Pm / (Psm * Ksm));
+        let Nm = Math.round(Pm / (Psm * Ksm * Tp));
         console.log("Nm = " + Nm);
 
         Qmean -= Number(Qmax) * Number(Tp);
@@ -534,13 +687,14 @@ calculateNode.addEventListener("click", () => {
                 <div>
                     <p>Объем запасов</p>
                     <div class="flex">
-                        <p class="g-item">Zt</p>
-                        <p class="g-item">Zг</p>
+                        <p class="g-item">Z<sub>t</sub></p>
+                        <p class="g-item">Z<sub>г</sub></p>
                     </div>
                 </div>
 
-                <p>Время создания запасов, t1</p>
-                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Число дней создания запасов, t<sub>1</sub></p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
+                <p>Число дней выработки запасов, t<sub>4</sub></p>
             </div>`;
         for (let i = 0; i < resultCalculated[0].length; i++) {
             newMonth += `<div class="grid-row">
@@ -552,14 +706,15 @@ calculateNode.addEventListener("click", () => {
 
             <p>${resultCalculated[0][i].t1}</p>
             <p>${resultCalculated[0][i].t3}</p>
+            <p>${resultCalculated[0][i].t4}</p>
         </div>`;
         }
         newMonth += `</div>
     <div class="info">
-                <h4>Объем производства: ${resultVCars[0].Qo}</h4>
-                <h4>Число дополнительных машин: ${resultVCars[0].Qd}</h4>
-                <h4>Всего: ${resultVCars[0].Pm}</h4>
-                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm}</h4>
+                <h4>Объем производства основных машин: ${resultVCars[0].Qo} м<sup>3</sup></h4>
+                <h4>Объем производства дополнительных машин: ${resultVCars[0].Qd} м<sup>3</sup></h4>
+                <h4>Итого объём производства: ${resultVCars[0].Pm} м<sup>3</sup></h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm} шт.</h4>
             </div>
         </div>`;
     } else if (Number(monthCountNode.value) == 2) {
@@ -584,13 +739,13 @@ calculateNode.addEventListener("click", () => {
                 <div>
                     <p>Объем запасов</p>
                     <div class="flex">
-                        <p class="g-item">Zt</p>
-                        <p class="g-item">Zг</p>
+                    <p class="g-item">Z<sub>t</sub></p>
+                    <p class="g-item">Z<sub>г</sub></p>
                     </div>
                 </div>
 
-                <p>Время создания запасов, t1</p>
-                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Число дней создания запасов, t<sub>1</sub></p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
             </div>`;
         for (let i = 0; i < resultCalculated[0].length; i++) {
             newMonth += `<div class="grid-row">
@@ -606,10 +761,10 @@ calculateNode.addEventListener("click", () => {
         }
         newMonth += `</div>
     <div class="info">
-                <h4>Объем производства: ${resultVCars[0].Qo}</h4>
-                <h4>Число дополнительных машин: ${resultVCars[0].Qd}</h4>
-                <h4>Всего: ${resultVCars[0].Pm}</h4>
-                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm}</h4>
+                <h4>Объем производства основных машин: ${resultVCars[0].Qo} м<sup>3</sup></h4>
+                <h4>Объем производства дополнительных машин: ${resultVCars[0].Qd} м<sup>3</sup></h4>
+                <h4>Итого объём производства: ${resultVCars[0].Pm} м<sup>3</sup></h4>
+                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[0].Nm} шт.</h4>
             </div>
         </div>`;
         //2
@@ -621,13 +776,13 @@ calculateNode.addEventListener("click", () => {
                 <div>
                     <p>Объем запасов</p>
                     <div class="flex">
-                        <p class="g-item">Zt</p>
-                        <p class="g-item">Zг</p>
+                    <p class="g-item">Z<sub>t</sub></p>
+                    <p class="g-item">Z<sub>г</sub></p>
                     </div>
                 </div>
 
-                <p>Время работы с дополнительными машинами, t3</p>
-                <p>Время выработки запасов, t4</p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
+                <p>Число дней выработки запасов, t<sub>4</sub></p>
             </div>`;
         for (let i = 0; i < resultCalculated[1].length; i++) {
             newMonth += `<div class="grid-row">
@@ -643,10 +798,10 @@ calculateNode.addEventListener("click", () => {
         }
         newMonth += `</div>
     <div class="info">
-                <h4>Объем производства: ${resultVCars[1].Qo}</h4>
-                <h4>Число дополнительных машин: ${resultVCars[1].Qd}</h4>
-                <h4>Всего: ${resultVCars[1].Pm}</h4>
-                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[1].Nm}</h4>
+    <h4>Объем производства основных машин: ${resultVCars[1].Qo} м<sup>3</sup></h4>
+    <h4>Объем производства дополнительных машин: ${resultVCars[1].Qd} м<sup>3</sup></h4>
+    <h4>Итого объём производства: ${resultVCars[1].Pm} м<sup>3</sup></h4>
+    <h4>Ежедневная потребность машин на вывозке: ${resultVCars[1].Nm} шт.</h4>
             </div>
         </div>`;
     } else {
@@ -665,14 +820,14 @@ calculateNode.addEventListener("click", () => {
                 <div>
                     <p>Объем запасов</p>
                     <div class="flex">
-                        <p class="g-item">Zt</p>
-                        <p class="g-item">Zг</p>
+                    <p class="g-item">Z<sub>t</sub></p>
+                    <p class="g-item">Z<sub>г</sub></p>
                     </div>
                 </div>`;
             if (i == 0) {
                 newMonth += `
-                <p>Время создания запасов, t1</p>
-                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Число дней создания запасов, t<sub>1</sub></p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
             </div>`;
                 for (let j = 0; j < resultCalculated[i].length; j++) {
                     newMonth += `<div class="grid-row">
@@ -688,8 +843,8 @@ calculateNode.addEventListener("click", () => {
                 }
             } else if (i == Number(monthCountNode.value) - 1) {
                 newMonth += `
-                <p>Время работы с дополнительными машинами, t3</p>
-                <p>Время выработки запасов, t4</p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
+                <p>Число дней выработки запасов, t<sub>4</sub></p>
             </div>`;
                 for (let j = 0; j < resultCalculated[i].length; j++) {
                     newMonth += `<div class="grid-row">
@@ -705,7 +860,7 @@ calculateNode.addEventListener("click", () => {
                 }
             } else {
                 newMonth += `
-                <p>Время работы с дополнительными машинами, t3</p>
+                <p>Число дней работы с дополнительными машинами, t<sub>3</sub></p>
             </div>`;
                 for (let j = 0; j < resultCalculated[i].length; j++) {
                     newMonth += `<div class="grid-row">
@@ -721,10 +876,10 @@ calculateNode.addEventListener("click", () => {
             }
             newMonth += `</div>
     <div class="info">
-                <h4>Объем производства: ${resultVCars[i].Qo}</h4>
-                <h4>Число дополнительных машин: ${resultVCars[i].Qd}</h4>
-                <h4>Всего: ${resultVCars[i].Pm}</h4>
-                <h4>Ежедневная потребность машин на вывозке: ${resultVCars[i].Nm}</h4>
+    <h4>Объем производства основных машин: ${resultVCars[i].Qo} м<sup>3</sup></h4>
+    <h4>Объем производства дополнительных машин: ${resultVCars[i].Qd} м<sup>3</sup></h4>
+    <h4>Итого объём производства: ${resultVCars[i].Pm} м<sup>3</sup></h4>
+    <h4>Ежедневная потребность машин на вывозке: ${resultVCars[i].Nm} шт.</h4>
             </div>
         </div>`;
         }
